@@ -171,6 +171,7 @@ figure figcaption{position:absolute;bottom:-25%;left:1em;margin-right:1em;paddin
 figure:hover figcaption,.no-csstransitions figure figcaption{bottom:1em}
 .post-content{overflow:hidden}
 .post .post-meta{margin:1em 0 0;padding:0;font-size:1.4em}
+.post-block div.post-meta{margin-left: 7em}
 .post .post-meta i{margin-right:.25em}
 .post-content .photo{margin-right: auto;margin-left: auto;border-width:.5em;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;-o-box-sizing:border-box;box-sizing:border-box}
 .post .hl{background:#fff;display:inline}
