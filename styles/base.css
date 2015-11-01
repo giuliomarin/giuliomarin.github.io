@@ -189,7 +189,7 @@ figure:hover figcaption,.no-csstransitions figure figcaption{bottom:1em}
 .post-list{border-top:0.1em solid rgba(0,0,0,0.1);padding-bottom:1em;margin-bottom:0}
 .post-block{margin:0;padding:1em 2em;position:relative;overflow: hidden; border-bottom:1px solid rgba(0,0,0,0.1)}
 .post-block:hover{background:rgba(255,255,255,0.5)}
-.post-block .right{float:right;width:5em;margin:0.3em 0 0 0.5em;height:5em}
+.post-block .right{float:left;width:5em;margin:0.3em 1em 0 0;height:5em}
 .post-block .post-title{margin:0}
 .post-block .post-title a{padding:.25em 0 0;display:block}
 .post-block .post-title a:before{content:"";display:block;position:absolute;top:0;bottom:0;left:0;right:0}
