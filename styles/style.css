@@ -1,0 +1,78 @@
+@font-face {
+  font-family: 'website-giulio';
+  src: url('fonts/website-giulio.eot?96802134');
+  src: url('fonts/website-giulio.eot?96802134#iefix') format('embedded-opentype'),
+       url('fonts/website-giulio.woff?96802134') format('woff'),
+       url('fonts/website-giulio.ttf?96802134') format('truetype'),
+       url('fonts/website-giulio.svg?96802134#website-giulio') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+/* Chrome hack: SVG is rendered more smooth in Windozze. 100% magic, uncomment if you need it. */
+/* Note, that will break hinting! In other OS-es font will be not as sharp as it could be */
+/*
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  @font-face {
+    font-family: 'website-giulio';
+    src: url('fonts/website-giulio.svg?96802134#website-giulio') format('svg');
+  }
+}
+*/
+ 
+
+/* Use the following CSS code if you want to use data attributes for inserting your icons */
+[data-icon]:before
+{
+	font-family: 'website-giulio';
+	content: attr(data-icon);
+	speak: none;
+	font-weight: normal;
+	line-height: 1;
+	-webkit-font-smoothing: antialiased;
+}
+
+ [class^="icon-"]:before, [class*=" icon-"]:before
+{
+	font-family: 'website-giulio';
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	line-height: 1;
+	-webkit-font-smoothing: antialiased;
+ 
+  /* For safety - reset parent styles, that can break glyph codes*/
+  font-variant: normal;
+  text-transform: none;
+ 
+  /* you can be more comfortable with increased icons size */
+  /* font-size: 120%; */
+ 
+  /* Uncomment for 3D effect */
+  /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+}
+ 
+.icon-envelop:before { content: '\e803'; } /* '' */
+.icon-tv:before { content: '\e80f'; } /* '' */
+.icon-close:before { content: '\e809'; } /* '' */
+.icon-home:before { content: '\e80a'; } /* '' */
+.icon-attach:before { content: '\e806'; } /* '' */
+.icon-code:before { content: '\e80d'; } /* '' */
+.icon-pencil-alt:before { content: '\e811'; } /* '' */
+.icon-doc:before { content: '\e815'; } /* '' */
+.icon-menu:before { content: '\e808'; } /* '' */
+.icon-globe:before { content: '\e810'; } /* '' */
+.icon-list-bullet:before { content: '\e80b'; } /* '' */
+.icon-suitcase:before { content: '\e812'; } /* '' */
+.icon-camera:before { content: '\e807'; } /* '' */
+.icon-apple:before { content: '\e80e'; } /* '' */
+.icon-facebook:before { content: '\e814'; } /* '' */
+.icon-flickr:before { content: '\e802'; } /* '' */
+.icon-github:before { content: '\e813'; } /* '' */
+.icon-instagramm:before { content: '\e816'; } /* '' */
+.icon-linkedin:before { content: '\e801'; } /* '' */
+.icon-skype:before { content: '\e800'; } /* '' */
+.icon-newspaper:before { content: '\e805'; } /* '' */
+.icon-pencil:before { content: '\e804'; } /* '' */
+.icon-pitch:before { content: '\e817'; } /* '' */
+.icon-google:before { content: '\e818'; } /* '' */
+.icon-floppy:before { content: '\e80c'; } /* '' */
