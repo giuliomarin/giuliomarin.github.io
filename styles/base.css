@@ -188,7 +188,7 @@ figure:hover figcaption,.no-csstransitions figure figcaption{bottom:1em}
 .list-title{font-size:1.5em;padding:0 1.4em;margin-top:1em}
 .list-title i{margin-right:.25em}
 .post-list{border-top:0.1em solid rgba(0,0,0,0.1);padding-bottom:1em;margin-bottom:0}
-.post-block{margin:0;padding:1em 2em;position:relative;overflow: hidden; border-bottom:1px solid rgba(0,0,0,0.1)}
+.post-block{margin:0;padding:1em 1em;position:relative;overflow: hidden; border-bottom:1px solid rgba(0,0,0,0.1)}
 .post-block:hover{background:rgba(255,255,255,0.5)}
 .post-block .right{float:left;width:5em;margin:0.3em 1em 0 0;height:5em}
 .post-block .post-title{margin:0}
@@ -204,7 +204,7 @@ figure:hover figcaption,.no-csstransitions figure figcaption{bottom:1em}
 @media only screen and (min-width : 500px) and (max-width : 600px){body{font-size:1.2em}}
 @media only screen and (min-width : 600px) and (max-width : 800px){body{font-size:1.3em}}
 @media only screen and (min-width : 800px){body{font-size:1.4em}}
-@media only screen and (min-width:1200px){.mini-profile .inline-list li{width:100%} body.sidebar #topbar{display: none}body.sidebar{font-size:1.7em;max-width:1000px}body.sidebar .mini-profile li{font-size: 1.5em}body.sidebar{padding:0 0 0 24em}body.sidebar aside{position:fixed;width:19em;margin-left:-24em}body.sidebar #topbar .nav-trigger{position:static}body.sidebar #sitemeta{top:0em;z-index:1}body.sidebar .mini-profile{font-size:.75em;padding:2.7em}body.sidebar .mini-profile .main-title{font-size:1.7em;margin-top:.25em}body.sidebar .mini-profile .avatar{width:6.2em}body.sidebar .mini-profile{opacity:.3;-webkit-transition:opacity .25s ease-in;-moz-transition:opacity .25s ease-in;-o-transition:opacity .25s ease-in;transition:opacity .25s ease-in}body.sidebar .mini-profile:hover{opacity:1}}
+@media only screen and (min-height:620px) and (min-width:1200px){.mini-profile .inline-list li{width:100%} body.sidebar #topbar{display: none}body.sidebar{font-size:1.7em;max-width:1000px}body.sidebar .mini-profile li{font-size: 1.5em}body.sidebar{padding:0 0 0 24em}body.sidebar aside{position:fixed;width:19em;margin-left:-24em}body.sidebar #topbar .nav-trigger{position:static}body.sidebar #sitemeta{top:0em;z-index:1}body.sidebar .mini-profile{font-size:.75em;padding:2.7em}body.sidebar .mini-profile .main-title{font-size:1.7em;margin-top:.25em}body.sidebar .mini-profile .avatar{width:6.2em}body.sidebar .mini-profile{opacity:.3;-webkit-transition:opacity .25s ease-in;-moz-transition:opacity .25s ease-in;-o-transition:opacity .25s ease-in;transition:opacity .25s ease-in}body.sidebar .mini-profile:hover{opacity:1}}
 
 .hidden{display:none!important;visibility:hidden}
 .vishid{border:0;clip:rect(0 0 0 0);height:1px;margin:-1px;overflow:hidden;padding:0;position:absolute;width:1px}
