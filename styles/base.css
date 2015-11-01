@@ -184,9 +184,9 @@ figure:hover figcaption,.no-csstransitions figure figcaption{bottom:1em}
 .post-content .btn {color: #f9f4ed;}
 .post-content .btn:hover{background:rgba(255,255,255,0.5);color:#c66}
 .post-footer{padding-top:0;clear:both}
-.list-title{font-size:1.5em;padding:0 1.4em;margin-top:1.5em}
+.list-title{font-size:1.5em;padding:0 1.4em;margin-top:1em}
 .list-title i{margin-right:.25em}
-.post-list{border-top:0.1em solid rgba(0,0,0,0.1);padding-bottom:3em;margin-bottom:0}
+.post-list{border-top:0.1em solid rgba(0,0,0,0.1);padding-bottom:1em;margin-bottom:0}
 .post-block{margin:0;padding:1em 2em;position:relative;overflow: hidden; border-bottom:1px solid rgba(0,0,0,0.1)}
 .post-block:hover{background:rgba(255,255,255,0.5)}
 .post-block .right{float:right;width:5em;margin:0.3em 0 0 0.5em;height:5em}
