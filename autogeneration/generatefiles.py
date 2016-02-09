@@ -51,6 +51,22 @@ def addPublicationsToIndex(templateNewPaper, pubslistPath):
         publications.append(newPaper)
                 
     return '\n\n'.join(publications)
+    
+def getNumberPublications(pubslistPath):
+    # Parse publications
+    rows = csv.reader(open(pubslistPath, 'rb'), delimiter = ',')
+    
+    # Count publications
+    numPublications = 0
+    for row in rows:
+        # New section
+        if len(row) == 0:
+            rows.next()
+            rows.next()
+            continue
+        numPublications += 1
+    
+    return numPublications
 
 def addPublicationsToPublications(templateSection, templateNewPaper, pubslistPath):
     # Open template files
@@ -91,14 +107,17 @@ def addPublicationsToPublications(templateSection, templateNewPaper, pubslistPat
         
         # Remove parts not available
         if int(row[-1]) == 0:
-            parts = newPaper.split('<!-- Poster -->')
+            parts = newPaper.split('<!-- Poster -->\n')
             newPaper = parts[0] + parts[2]
         if int(row[-2]) == 0:
-            parts = newPaper.split('<!-- Word cloud -->')
-            newPaper = parts[0] + '\n<div>\n' + parts[2]
+            parts = newPaper.split('<!-- Word cloud -->\n')
+            newPaper = parts[0] + '<div>\n' + parts[2]
         if len(row[-3]) == 0:
-            parts = newPaper.split('<!-- Links -->')
+            parts = newPaper.split('<!-- Links -->\n')
             newPaper = parts[0] + parts[2]
+        elif row[-3][0:4] == 'http':
+            parts = newPaper.split('<!-- Links -->')
+            newPaper = parts[0] + r'<a class="btn light" href="%s"><i class="icon-doc" title="URL"></i>URL</a>' % row[-3] + parts[2]
         
         publications.append(newPaper)
     
@@ -135,6 +154,8 @@ if __name__ == '__main__':
     # publications
     publications = addPublicationsToPublications(templatePubsSection, templateNewPaperPublications, pubsList)
     publicationsFilled = fillPlaceholder(templatePublications, 'publications', publications)
+    numPublications = getNumberPublications(pubsList)
+    publicationsFilled = publicationsFilled.replace('Number of publications: xxx', 'Number of publications: %d' % numPublications)
     
     ## write files
     open(outIndex, 'w').write(indexFilled)
