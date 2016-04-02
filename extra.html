@@ -19,7 +19,17 @@
       var data = $(data);
       var num = "<b>" + $("div#year div.sum_distance span.value", data).first().text() + "</b> this year ";
       $("li p.runtastic-distance").prepend(num);
+      var num_activities_month = parseInt($("div#month div.run_sessions_count span.value", data).first().text())
+      var thismonth = "<br><b>" + num_activities_month.toString() + "</b>" + ((num_activities_month > 1) ? " activities" : " activity") + " this month";
+      $("li p.runtastic-distance").append(thismonth);
       });
+    </script>
+    
+    <script>
+        $.get('extra/webcam.html',function(data){
+            var num_webcams = $( "figure", data ).length;
+            $("#numWebcams").text("from " + num_webcams + " places of my interest");
+        });
     </script>
 </head>
 
@@ -72,7 +82,7 @@
                         <img src="http://iconizer.net/files/Vista/orig/webcam.png">
                     </div>
                     <h3 class="post-title"><a href="extra/webcam.html">Webcam</a></h3>
-                    <p class="post-meta subtitle">from places of my interest</p>
+                    <p class="post-meta subtitle" id="numWebcams"></p>
                 </li>
 <!--
                 <li class="post-block">

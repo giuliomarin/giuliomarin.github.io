@@ -13,6 +13,27 @@
     <link rel="stylesheet" type="text/css" href="styles/base.css" />
 
     <link href="http://fonts.googleapis.com/css?family=Dosis:400,700%7CBitter:400,400italic,700&subset=latin,latin" rel="stylesheet" type="text/css">
+    
+    <!-- Add dynamic information  -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            var num_albums = $( "li.post-block" ).length;
+            $("#numAlbums").text(num_albums + " album");
+        });
+    </script>
+    
+    <script>
+        $.get('photos/california.html',function(data){
+            var num_photos = $( "figure", data ).length;
+            $("#numPhotos_california").text(num_photos + " photos");
+        });
+        $.get('photos/dolomiti.html',function(data){
+            var num_photos = $( "figure", data ).length;
+            $("#numPhotos_dolomiti").text(num_photos + " photos");
+        });
+    </script>
+
 </head>
 
 <body class="sidebar">
@@ -48,21 +69,21 @@
         <hr>
 
         <section class="wrap">
-            <h2 class="list-title"><i class="icon-camera"></i>2 Album</h2>
+            <h2 class="list-title" id="numAlbums"><i class="icon-camera"></i></h2>
             <ul class="post-list">
                 <li class="post-block">
                     <div class="right photo">
                         <img src="https://farm8.staticflickr.com/7571/15900032161_4ca0b50e44_s.jpg">
                     </div>
                     <h3 class="post-title"><a href="photos/california.html">California</a></h3>
-                    <p class="post-meta">14 photos</p>
+                    <p class="post-meta" id="numPhotos_california"></p>
                 </li>
                 <li class="post-block">
                     <div class="right photo">
                         <img src="https://farm4.staticflickr.com/3783/13800046785_90cb43292d_s.jpg">
                     </div>
                     <h3 class="post-title"><a href="photos/dolomiti.html">Dolomiti</a></h3>
-                    <p class="post-meta subtitle">23 photos</p>
+                    <p class="post-meta subtitle" id="numPhotos_dolomiti"></p>
                 </li>
             </ul>
         </section>
