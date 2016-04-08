@@ -7,7 +7,7 @@ import sys
 
 ## Constants
 
-NUM_ENTRIES = 8
+NUM_ENTRIES = 10
 NUM_PUBLICATIONS_INDEX = 5
 
 ## Functions
@@ -98,26 +98,26 @@ def addPublicationsToPublications(templateSection, templateNewPaper, pubslistPat
             continue
 
         # Check to have all the fields
-        if not len(row) == 8:
-            print 'Check entry:\n%s\n8 required arguments' % row
+        if not len(row) == NUM_ENTRIES:
+            print 'Check entry:\n%s\n%d required arguments' % (row, NUM_ENTRIES)
             sys.exit()
 
         # Add new paper to the current section
         newPaper = (templateNewPaperRaw % tuple(row[0:5])).replace('currSection', sectionTitle.replace(' ', '')).replace('fileName', row[5])
 
         # Remove parts not available
-        if int(row[7]) == 0:
+        if int(row[7]) == 0: # no PDF
+            parts = newPaper.split('<!-- Links -->\n')
+            newPaper = parts[0] + '<!-- Links -->' + '\n  <!-- Links -->\n' + parts[2]
+        if row[9].startswith('http'): # add URL
+            parts = newPaper.split('<!-- Links -->')
+            newPaper = parts[0] + '<!-- Links -->' + parts[1] + r'  <a class="btn light" href="%s"><i class="icon-doc" title="URL"></i>URL</a>' % row[9] + '\n  <!-- Links -->' + parts[2]
+        if int(row[8]) == 0: # no poster
             parts = newPaper.split('<!-- Poster -->\n')
             newPaper = parts[0] + parts[2]
-        if int(row[6]) == 0:
+        if int(row[6]) == 0: # no word cloud
             parts = newPaper.split('<!-- Word cloud -->\n')
             newPaper = parts[0] + '<div>\n' + parts[2]
-        if len(row[5]) == 0:
-            parts = newPaper.split('<!-- Links -->\n')
-            newPaper = parts[0] + parts[2]
-        elif row[5].startswith('http'):
-            parts = newPaper.split('<!-- Links -->')
-            newPaper = parts[0] + r'<a class="btn light" href="%s"><i class="icon-doc" title="URL"></i>URL</a>' % row[5] + parts[2]
 
         publications.append(newPaper)
 
@@ -159,8 +159,8 @@ def addPublicationsToCv(templateSection, templateNewPaper, pubslistPath):
             continue
 
         # Check to have all the fields
-        if not len(row) == 8:
-            print 'Check entry:\n%s\n8 required arguments' % row
+        if not len(row) == NUM_ENTRIES:
+            print 'Check entry:\n%s\n%d required arguments' % (row, NUM_ENTRIES)
             sys.exit()
 
         # Add new paper to the current section
