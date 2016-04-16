@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="author" content="Giulio Marin">
-    <title>Giulio Marin | Projects - Water-filling OFDM</title>
+    <title>Giulio Marin | Projects - LDPC codes</title>
 <!--    <meta name="description" content="Giulio Marin is a Ph.D. student at the University of Padova (Italy). His research interests are in computer vision.">-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -38,35 +38,45 @@
    <section id="page" class="post" role="main">
 
         <header class="wrap post-header">
-            <h1 class="page-title">Water-filling OFDM</h1>
-            <p class="post-meta subtitle"><time datetime="2013-03-20">2013/03/20</time></p>
+            <h1 class="page-title">LDPC codes</h1>
+            <p class="post-meta subtitle"><time datetime="2013-03-20">2013/06/28</time></p>
         </header>
 
         <hr/>
 
         <article class="wrap post-content">
 
-    		<h3>Water-filling algorithm for finding the optimal power allocation of each subchannel in OFDM systems</h3>
+    		<h3>Encoder and message passing decoder for LDPC codes (802.11n)</h3>
 
             <hr>
 
             <h4>Introduction</h4>
-            <p>The water-filling (also known as water pouring) algorithm allocates more (or less) bits and power to some subcarriers with larger (or smaller) SNR for maximizing the channel capacity. This implies that the water-filling algorithm requires a full knowledge of channel state information for each subcarrier on the transmitter side.</p>
+            <p>Low density parity check (LDPC) codes are linear block codes approaching capacity. Turbo codes are an example of another capacity-approacing code family. There are many applications that use LDPC codes, including the standard for the satellite transmission DVB-S2, 10GBase-T Ethernet, and 802.11 Wi-Fi standard. LDPC codes are defined by a sparse parity check matrix that determines the performance of the transmission. The maximum likelihood decoding of an LDPC code is an NP-complete problem and sub-optimal decoding techniques rely on belief propagation.</p>
+            <p>This project cosinsts in the implementation in MATLAB of the encoder and message passing decoder for the LDPC codes used in the IEEE 802.11n standard. After a brief description of the encoder and fields of applications, the sum-product algorithm for message passing decoder is presented. The performance are then evaluated in AWGN settings in terms of BER and PER.</p>
+            <p>
+                <a class="btn" href="http://prezi.com/aqckvai6jux-/?utm_campaign=share&utm_medium=copy" target="_blank"><i class="icon-doc"></i>Presentation</a>
+            </p>
 
             <hr>
 
-            <h4>Code</h4>
-            <p>This is a MATLAB GUI that allows one to compute and graphically represent the optimal power allocation for each band of an OFDM system using the water-filling algorithm.</p>
-            <p>For more details take a look at the help section in the tool.</p>
+            <h4>Implementation</h4>
+            <p>The encoder uses a parity check matrix H of size 324x648, i.e. R = 1/2. The matrix is made of 27x27 blocks obtained by circular shifts of the prototype matrix</p>
+            <figure>
+              <img src="ldpc1.pdf" alt="Parity-check matrix"/>
+              <figcaption>Prototype matrix for H</figcaption>
+            </figure>
+            <p>and blocks of zeros. In order to generate valid codes the matrix H needs to be inverted. Exploiting its particular properties, H can be decomposed in 6 blocks and codes can be generated in linear time instead of cubic.</p>
+            <p>
+              The decoder is implemented using the sum-product algorithm in the log domain so that products become sums. Messages are exchanged in an iterative way between variable nodes, representing the columns of H, and check nodes, representing the rows of H.
+            </p>
+            <figure>
+              <img src="ldpc2.png" alt="Message passing"/>
+              <figcaption>Message passing</figcaption>
+            </figure>
 
             <p>
-                <a class="btn" href="https://github.com/giuliomarin/tlc/tree/master/water_filling_ofdm" target="_blank"><i class="icon-code"></i>MATLAB code</a>
+                <a class="btn" href="https://github.com/giuliomarin/tlc/tree/master/ldpc" target="_blank"><i class="icon-code"></i>MATLAB code</a>
             </p>
-
-            <figure>
-                <img src="water_filling_ofdm.jpg" alt="Water Filling"/>
-<!--                <figcaption>MATLAB GUI</figcaption>-->
-            </figure>
 
         </article>
 
@@ -76,8 +86,8 @@
                <i class="icon-flickr"></i>
                Follow me on Github
            </a>
-       </footer>
--->
+       </footer> -->
+
 
     </section>
 
