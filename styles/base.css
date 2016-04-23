@@ -195,6 +195,7 @@ figure:hover figcaption,.no-csstransitions figure figcaption{bottom:1em}
 .post-block .post-title{margin:0}
 .post-block .post-title a{padding:.25em 0 0;display:block}
 .post-block .post-title a:before{content:"";display:block;position:absolute;top:0;bottom:0;left:0;right:0}
+.post-block .photo{-moz-box-sizing:border-box;-webkit-box-sizing:border-box;-o-box-sizing:border-box;box-sizing:border-box}
 .post-list .post-meta{margin:0;padding:.25em 0;font-size:1em;}
 .subtitle{color:rgba(0,0,0,0.35)}
 .inline-list li{display:inline-block}
