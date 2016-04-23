@@ -158,14 +158,14 @@ display: block; /*places the popups infront of the thumbnails, which we gave a z
 
 ul.enlarge li.post-block{display: inline-block; overflow: visible}
 
-.right img{margin: auto;position: absolute;left: 50%;top: 50%;-webkit-transform: translateY(-50%) translateX(-50%);-moz-transform: translateY(-50%) translateX(-50%);-o-transform: translateY(-50%) translateX(-50%)}
+.right img{margin: auto;position: absolute;left:-50%;top:-50%;bottom:-50%;right:-50%}
 
 .centered {position:absolute;width:em;height: 5em}
 
 figure{overflow:hidden;position:relative;display:block;width: 80%;height: auto;margin-right: auto;margin-left: auto}
 figure img{width:100%}
 
-.photo{overflow:hidden;position:relative;margin-bottom: 1.4em;border-radius:.25em;max-width:702px;display:block;border:.25em solid #444}
+.photo{overflow:hidden;position:relative;margin-bottom: 1.4em;border-radius:.25em;max-width:702px;display:block;box-shadow: 0 0 0 0.25em #444}
 .photo img{width: 100%;height: auto}
 .photo.fit-height img{width: auto;height: 100%}
 figure figcaption{position:absolute;bottom:-25%;left:1em;margin-right:1em;padding:.5em 1em;border-radius:.25em;background:rgba(0,0,0,0.85);color:#eee;-webkit-transition:bottom .5s ease-in-out;-moz-transition:bottom .5s ease-in-out;-o-transition:bottom .5s ease-in-out;transition:bottom .5s ease-in-out}
