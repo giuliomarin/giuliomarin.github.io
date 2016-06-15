@@ -126,7 +126,7 @@ def addPublicationsToPublications(templateSection, templateNewPaper, pubslistPat
         section.append((templateSectionRaw % ('\n'.join(publications))).replace('currSection', sectionTitle))
 
     return '\n'.join(section)
-    
+
 def addPublicationsToCv(templateSection, templateNewPaper, pubslistPath):
     # Open template files
     templateSectionRaw = open(templateSection, 'r').read()
@@ -187,7 +187,7 @@ def fillPlaceholder(filePath, id, toInsert):
 if __name__ == '__main__':
 
     # filenames
-    pubsList = '/Users/giulio/Dropbox (Personal)/Giulio/Education/4_PhD/Publications/publications.csv'
+    pubsList = '/Users/giulio/Dropbox (Personal)/Giulio/Education/7_Publications/publications.csv'
     templatePubsSection = '/Users/giulio/Dropbox (Personal)/Giulio/Sites/current/autogeneration/publicationsSection.html'
     templateNewPaperPublications = '/Users/giulio/Dropbox (Personal)/Giulio/Sites/current/autogeneration/publicationsPaper.html'
     templateNewPaperIndex = '/Users/giulio/Dropbox (Personal)/Giulio/Sites/current/autogeneration/indexPaper.html'
@@ -195,13 +195,13 @@ if __name__ == '__main__':
     templatePublications = '/Users/giulio/Dropbox (Personal)/Giulio/Sites/current/autogeneration/publications.html'
     outPublications = '/Users/giulio/Dropbox (Personal)/Giulio/Sites/current/publications.html'
     outIndex = '/Users/giulio/Dropbox (Personal)/Giulio/Sites/current/index.html'
-    
+
     # curriculum
     templateCv = '/Users/giulio/Dropbox (Personal)/Giulio/Sites/current/autogeneration/giulio_marin_cv_tofill.tex'
     templatePubsCvSection = '/Users/giulio/Dropbox (Personal)/Giulio/Sites/current/autogeneration/cvSection.tex'
     templateNewPaperCv = '/Users/giulio/Dropbox (Personal)/Giulio/Sites/current/autogeneration/cvPaper.tex'
     outCv = '/Users/giulio/Dropbox (Personal)/Giulio/Documents/Curriculum_Vitae/latex/giulio_marin_cv.tex'
-    
+
 
     ## Add publications
 
@@ -214,11 +214,11 @@ if __name__ == '__main__':
     publicationsFilled = fillPlaceholder(templatePublications, 'publications', publications)
     numPublications = getNumberPublications(pubsList)
     publicationsFilled = publicationsFilled.replace('Number of publications: xxx', 'Number of publications: %d' % numPublications)
-    
+
     # curriculum
     publications = addPublicationsToCv(templatePubsCvSection, templateNewPaperCv, pubsList)
     cvFilled = fillPlaceholder(templateCv, 'publications', publications)
-    
+
     ## write files
     open(outIndex, 'w').write(indexFilled)
     print('File generated: %s' % outIndex)
