@@ -7,7 +7,7 @@ import sys
 
 ## Constants
 
-NUM_ENTRIES = 10
+NUM_ENTRIES = 11
 NUM_PUBLICATIONS_INDEX = 5
 
 ## Functions
@@ -109,10 +109,13 @@ def addPublicationsToPublications(templateSection, templateNewPaper, pubslistPat
         if int(row[7]) == 0: # no PDF
             parts = newPaper.split('<!-- Links -->\n')
             newPaper = parts[0] + '<!-- Links -->' + '\n  <!-- Links -->\n' + parts[2]
-        if row[9].startswith('http'): # add URL
+        if int(row[8]) == 0:  # no BIB
+            parts = newPaper.split('<!-- Bib -->\n')
+            newPaper = parts[0] + '<!-- Bib -->' + '\n  <!-- Bib -->\n' + parts[2]
+        if row[10].startswith('http'): # add URL
             parts = newPaper.split('<!-- Links -->')
-            newPaper = parts[0] + '<!-- Links -->' + parts[1] + r'  <a class="btn light" href="%s"><i class="icon-doc" title="URL"></i>URL</a>' % row[9] + '\n  <!-- Links -->' + parts[2]
-        if int(row[8]) == 0: # no poster
+            newPaper = parts[0] + '<!-- Links -->' + parts[1] + r'  <a class="btn light" href="%s"><i class="icon-doc" title="URL"></i>URL</a>' % row[10] + '\n  <!-- Links -->' + parts[2]
+        if int(row[9]) == 0: # no poster
             parts = newPaper.split('<!-- Poster -->\n')
             newPaper = parts[0] + parts[2]
         if int(row[6]) == 0: # no word cloud
