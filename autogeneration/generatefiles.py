@@ -189,20 +189,23 @@ def fillPlaceholder(filePath, id, toInsert):
 
 if __name__ == '__main__':
 
+    # Current path
+    websitePath = os.path.abspath(os.path.join(os.path.dirname(os.path.realpath(__file__)), '..'))
+
     # filenames
     pubsList = '/Users/giulio/Dropbox (Personal)/Giulio/Education/7_Publications/publications.csv'
-    templatePubsSection = '/Users/giulio/Dropbox (Personal)/Giulio/Sites/current/autogeneration/publicationsSection.html'
-    templateNewPaperPublications = '/Users/giulio/Dropbox (Personal)/Giulio/Sites/current/autogeneration/publicationsPaper.html'
-    templateNewPaperIndex = '/Users/giulio/Dropbox (Personal)/Giulio/Sites/current/autogeneration/indexPaper.html'
-    templateIndex = '/Users/giulio/Dropbox (Personal)/Giulio/Sites/current/autogeneration/index.html'
-    templatePublications = '/Users/giulio/Dropbox (Personal)/Giulio/Sites/current/autogeneration/publications.html'
-    outPublications = '/Users/giulio/Dropbox (Personal)/Giulio/Sites/current/publications.html'
-    outIndex = '/Users/giulio/Dropbox (Personal)/Giulio/Sites/current/index.html'
+    templatePubsSection = os.path.join(websitePath, 'autogeneration/publicationsSection.html')
+    templateNewPaperPublications = os.path.join(websitePath, 'autogeneration/publicationsPaper.html')
+    templateNewPaperIndex = os.path.join(websitePath, 'autogeneration/indexPaper.html')
+    templateIndex = os.path.join(websitePath, 'autogeneration/index.html')
+    templatePublications = os.path.join(websitePath, 'autogeneration/publications.html')
+    outPublications = os.path.join(websitePath, 'publications.html')
+    outIndex = os.path.join(websitePath, 'index.html')
 
     # curriculum
-    templateCv = '/Users/giulio/Dropbox (Personal)/Giulio/Sites/current/autogeneration/giulio_marin_cv_tofill.tex'
-    templatePubsCvSection = '/Users/giulio/Dropbox (Personal)/Giulio/Sites/current/autogeneration/cvSection.tex'
-    templateNewPaperCv = '/Users/giulio/Dropbox (Personal)/Giulio/Sites/current/autogeneration/cvPaper.tex'
+    templateCv = os.path.join(websitePath, 'autogeneration/giulio_marin_cv_tofill.tex')
+    templatePubsCvSection = os.path.join(websitePath, 'autogeneration/cvSection.tex')
+    templateNewPaperCv = os.path.join(websitePath, 'autogeneration/cvPaper.tex')
     outCv = '/Users/giulio/Dropbox (Personal)/Giulio/Documents/Curriculum_Vitae/latex/giulio_marin_cv.tex'
 
 
