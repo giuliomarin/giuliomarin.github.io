@@ -1,3 +1,6 @@
+# To setup auto refreshing on mac
+# cp com.giuliomarin.website.plist $HOME/Library/LaunchAgents/
+
 # check connectivity
 ping -c1 www.google.com
 if [ "$?" != 0 ]; then
