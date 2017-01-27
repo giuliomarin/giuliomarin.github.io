@@ -1,5 +1,6 @@
 # To setup auto refreshing on mac
 # cp com.giuliomarin.website.plist $HOME/Library/LaunchAgents/
+# launchctl load $HOME/Library/LaunchAgents/com.giuliomarin.website.plist
 
 # check connectivity
 ping -c1 www.google.com
@@ -30,9 +31,10 @@ rm $MAIN_DIR/tmpfile
 unamestr=`uname`
 if [[ "$unamestr" == 'Darwin' ]]; then
   COMMAND="curl"
-elif
+else
   COMMAND="wget -O -"
 fi
+
 $COMMAND "https://scholar.google.com/citations?user=t9UpeEAAAAAJ&hl=en" > $MAIN_DIR/publications/googlescholar_giuliomarin.html
 $COMMAND "https://www.runtastic.com/en/users/Giulio-Marin/statistics" > $MAIN_DIR/extra/runtastic_giuliomarin.html
 echo "Updated on `date`" > $MAIN_DIR/scripts/log_downloaded.txt
