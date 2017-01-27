@@ -1,0 +1,31 @@
+# check connectivity
+ping -c1 www.google.com
+if [ "$?" != 0 ]; then
+  echo "No internet connection"
+  exit
+fi
+
+# get main folder
+# MAIN_DIR=/GitHub/giuliomarin.github.io
+MAIN_DIR=`dirname "$0"`/..
+
+# rebase commits
+idlist=`git log --format=format:"%h|%s" | awk -F\| '$2~/\[\*\*generated\*\*\]/ {printf("%s ", $1)}'`
+echo "List of commits to rebase: $idlist"
+for id in $idlist;
+do
+  git rebase -p --onto $id^ $id
+done
+
+# download web pages
+wget -O - "https://scholar.google.com/citations?user=t9UpeEAAAAAJ&hl=en" > $MAIN_DIR/publications/googlescholar_giuliomarin.html
+wget -O - "https://www.runtastic.com/en/users/Giulio-Marin/statistics" > $MAIN_DIR/extra/runtastic_giuliomarin.html
+echo "Updated on `date`" > $MAIN_DIR/scripts/log_downloaded.txt
+
+# commit generated files
+git reset
+git add $MAIN_DIR/publications/googlescholar_giuliomarin.html
+git add $MAIN_DIR/extra/runtastic_giuliomarin.html
+git add $MAIN_DIR/scripts/log_downloaded.txt
+git commit -m "[**generated**] updated downloaded pages"
+git push -f
