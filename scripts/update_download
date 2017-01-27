@@ -27,8 +27,14 @@ git stash pop
 rm $MAIN_DIR/tmpfile
 
 # download web pages
-wget -O - "https://scholar.google.com/citations?user=t9UpeEAAAAAJ&hl=en" > $MAIN_DIR/publications/googlescholar_giuliomarin.html
-wget -O - "https://www.runtastic.com/en/users/Giulio-Marin/statistics" > $MAIN_DIR/extra/runtastic_giuliomarin.html
+unamestr=`uname`
+if [[ "$unamestr" == 'Darwin' ]]; then
+  COMMAND="curl"
+elif
+  COMMAND="wget -O -"
+fi
+$COMMAND "https://scholar.google.com/citations?user=t9UpeEAAAAAJ&hl=en" > $MAIN_DIR/publications/googlescholar_giuliomarin.html
+$COMMAND "https://www.runtastic.com/en/users/Giulio-Marin/statistics" > $MAIN_DIR/extra/runtastic_giuliomarin.html
 echo "Updated on `date`" > $MAIN_DIR/scripts/log_downloaded.txt
 
 # commit generated files
