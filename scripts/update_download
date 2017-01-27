@@ -12,6 +12,7 @@ pushd $MAIN_DIR
 
 # rebase commits
 touch $MAIN_DIR/tmpfile
+git add $MAIN_DIR/tmpfile
 git stash
 idlist=`git log --format=format:"%h|%s" | awk -F\| '$2~/\[\*\*generated\*\*\]/ {printf("%s ", $1)}'`
 echo "List of commits to rebase: $idlist"
@@ -19,7 +20,7 @@ for id in $idlist;
 do
   git rebase -p --onto $id^ $id
 done
-git stash popd
+git stash pop
 rm $MAIN_DIR/tmpfile
 
 # download web pages
