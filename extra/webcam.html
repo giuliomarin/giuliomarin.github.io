@@ -61,6 +61,12 @@
 
         <article class="wrap post-content">
 
+          <h4>Test autorefresh</h4>
+          <figure class="photo">
+            <img src="test.png" id="reloader" onload="setTimeout('document.getElementById(\'reloader\').src=\'test.png?\'+ new Date().getHours() + new Date().getMinutes() + new Date().getSeconds() + new Date().getMilliseconds()', 1000 * 1)" />
+            <figcaption>Test autorefresh</figcaption>
+          </figure>
+
           <h4>Cortina D'Ampezzo, Italy</h4>
           <figure class="photo">
               <img src="http://www.belledolomiti.it/res/webcam/original/cortinatrampolino.jpg" data-src="http://www.belledolomiti.it/res/webcam/original/cortinatrampolino.jpg" alt="Cortina D'Ampezzo" />
