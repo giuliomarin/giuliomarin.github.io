@@ -1,4 +1,4 @@
 website=https://giuliomarin.github.io
 pushd ..
-find . | grep ".html" | grep -v "autogeneration" | sed 's/\.\///g' | awk -v ws="$website" '{printf(ws "/" $0 "\n")}' > sitemap.txt
+find . | grep ".html" | grep -v "autogeneration" | grep -v "giuliomarin\.html" | sed 's/\.\///g' | awk -v ws="$website" '{printf(ws "/" $0 "\n")}' > sitemap.txt
 popd
