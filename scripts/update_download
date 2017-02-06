@@ -1,12 +1,14 @@
+#!/bin/bash
 # To setup auto refreshing on mac
 # cp com.giuliomarin.website.plist $HOME/Library/LaunchAgents/
 # launchctl load $HOME/Library/LaunchAgents/com.giuliomarin.website.plist
+## (to stop) launchctl unload $HOME/Library/LaunchAgents/com.giuliomarin.website.plist
 
 # check connectivity
 ping -c1 www.google.com
 if [ "$?" != 0 ]; then
   echo "No internet connection"
-  exit
+  exit 0
 fi
 
 # get main folder
