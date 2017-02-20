@@ -1,3 +1,3 @@
 
 MAILTO=""
-* * * * * /home/maringiu/Public-Htdocs/scripts/downloadwebpages.sh > /home/maringiu/Public-Htdocs/scripts/crontablog.txt 2>&1
+0 * * * * /home/pi/git/giuliomarin.github.io/scripts/update_download > /dev/null 2>&1
