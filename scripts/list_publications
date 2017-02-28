@@ -1,0 +1,1 @@
+ while read l; do cat $l | awk -F\" '{print $3}' | awk -F, '{print $2}' | grep -v -e '^$'; done < ~/Dropbox\ \(Personal\)/Giulio/Education/7_Publications/publications.csv
