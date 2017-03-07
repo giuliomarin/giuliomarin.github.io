@@ -22,7 +22,7 @@ git add $MAIN_DIR/tmpfile
 git stash
 git fetch
 git reset --hard origin/master
-idlist=`git log --format=format:"%h|%s" | awk -F\| '$2~/\[\*\*generated\*/ {printf("%s ", $1)}'`
+idlist=`git log --format=format:"%h|%s" | awk -F\| '$2~/\[\*\*generated\*\*\]/ {printf("%s ", $1)}'`
 echo "List of commits to rebase: $idlist"
 for id in $idlist;
 do
