@@ -29,11 +29,11 @@ do
   git rebase -p --onto $id^ $id
 done
 git stash pop
+git reset
 rm tmpfile
 
 # download web pages
-unamestr=`uname`
-if [[ "$unamestr" == 'Darwin' ]]; then
+if [[ "`uname`" == 'Darwin' ]]; then
   COMMAND="curl"
 else
   COMMAND="wget -O -"
@@ -44,7 +44,6 @@ $COMMAND "https://www.runtastic.com/en/users/07b82bdf-b0df-9b46-97f1-0e6d19b40d8
 echo "Updated on `date`" > scripts/log_downloaded.txt
 
 # commit generated files
-git reset
 git add publications/googlescholar_giuliomarin.html
 git add extra/runtastic_giuliomarin.html
 git add scripts/log_downloaded.txt
