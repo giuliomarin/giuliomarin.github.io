@@ -13,24 +13,8 @@ else
   echo "Connected to internet"
 fi
 
-# get main folder
+# go to main folder
 pushd `dirname $0`/.. > /dev/null
-
-# rebase commits
-touch tmpfile
-git add tmpfile
-git stash
-git fetch
-git reset --hard origin/master
-idlist=`git log --format=format:"%h|%s" | awk -F\| '$2~/\[\*\*generated\*\*\]/ {printf("%s ", $1)}'`
-echo "List of commits to rebase: $idlist"
-for id in $idlist;
-do
-  git rebase -p --onto $id^ $id
-done
-git stash pop
-git reset
-rm tmpfile
 
 # download web pages
 if [[ "`uname`" == 'Darwin' ]]; then
@@ -39,15 +23,20 @@ else
   COMMAND="wget -O -"
 fi
 
-$COMMAND "https://scholar.google.com/citations?user=t9UpeEAAAAAJ&hl=en" > publications/googlescholar_giuliomarin.html
-$COMMAND "https://www.runtastic.com/en/users/07b82bdf-b0df-9b46-97f1-0e6d19b40d88/statistics" > extra/runtastic_giuliomarin.html
-echo "Updated on `date`" > scripts/log_downloaded.txt
+# download pages
+mkdir -p downloaded
+$COMMAND "https://scholar.google.com/citations?user=t9UpeEAAAAAJ&hl=en" > downloaded/googlescholar_giuliomarin.html
+$COMMAND "https://www.runtastic.com/en/users/07b82bdf-b0df-9b46-97f1-0e6d19b40d88/statistics" > downloaded/runtastic_giuliomarin.html
+echo "Updated on `date`" > log.txt
 
-# commit generated files
-git add publications/googlescholar_giuliomarin.html
-git add extra/runtastic_giuliomarin.html
-git add scripts/log_downloaded.txt
-git commit -m "[**generated**] updated downloaded pages"
-git push -f
+# pasre pages
+python scripts/parsehtml.py
+
+# commit and push if different
+if git status | grep "data.html"; then
+  git add data.html log.txt
+  git commit -m "[**generated**] Update data"
+  git push
+fi
 
 popd > /dev/null
