@@ -17,11 +17,10 @@
 
     <!-- Add dynamic information  -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-    <script>$.get('extra/runtastic_giuliomarin.html', function(data) {
-      var data = $(data);
-      var num = "<b>" + $("div#year div.sum_distance span.value", data).first().text() + "</b> this year ";
+    <script>$.get('data.html', function(data) {
+      var num = "<b>" + $(data).filter("div").find("distyear").text() + "</b> this year ";
       $("li p.runtastic-distance").prepend(num);
-      var num_activities_month = parseInt($("div#month div.run_sessions_count span.value", data).first().text())
+      var num_activities_month = parseInt($(data).filter("div").find("activitiesmonth").text())
       var thismonth = "<br><b>" + num_activities_month.toString() + "</b>" + ((num_activities_month > 1) ? " activities" : " activity") + " this month";
       $("li p.runtastic-distance").append(thismonth);
       });
@@ -33,7 +32,7 @@
             $("#numWebcams").text("from " + num_webcams + " places of my interest");
         });
     </script>
-    <script>$.get('scripts/log_downloaded.txt', function(data) {$("#lastUpdate").append(data);});</script>
+    <script>$.get('log.txt', function(data) {$("#lastUpdate").append(data);});</script>
 </head>
 
 <body class="sidebar">

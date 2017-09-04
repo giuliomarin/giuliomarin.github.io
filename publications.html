@@ -23,13 +23,12 @@
             var num_publications = $( "li.post-block" ).length;
             $("#numCitations").append("I currently have <b>" + num_publications + "</b> publications");
         });
-    $.get('publications/googlescholar_giuliomarin.html', function(data) {
-    var data = $(data);
-    var num = ", with <a href=\"http://scholar.google.com/citations?user=t9UpeEAAAAAJ&hl=en\"><b>" + $("tr td.gsc_rsb_std", data).first().text() + "</b></a> citations.";
+    $.get('data.html', function(data) {
+    var num = ", with <a href=\"http://scholar.google.com/citations?user=t9UpeEAAAAAJ&hl=en\"><b>" + $(data).filter("div").find("numcit").text() + "</b></a> citations.";
     $("#numCitations").append(num);
-  });
+    });
     </script>
-    <script>$.get('scripts/log_downloaded.txt', function(data) {$("#lastUpdate").append(data);});</script>
+    <script>$.get('log.txt', function(data) {$("#lastUpdate").append(data);});</script>
 </head>
 
 <body class="sidebar">
@@ -71,7 +70,7 @@
   <ul class="post-list enlarge">
     <li class="post-block">
   <div>
-  <p itemscope itemtype="http://schema.org/Article" class="post-meta">Aryan Hazeghi, Giulio Marin, Francesco Peruch, Carlo Dal Mutto, Abbas Rafii, <em>"Systems and methods for reducing z-thickness and zero-order effects in depth cameras"</em>, Aquifi, Inc., US 2016 0127714, 2016</p>
+  <p itemscope itemtype="http://schema.org/Article" class="post-meta">A. Hazeghi, G. Marin, F. Peruch, C. Dal Mutto, A. Rafii, <em>"Systems and methods for reducing z-thickness and zero-order effects in depth cameras"</em>, Aquifi, Inc., US 2016 0127714, 2016</p>
   <!-- Links -->
     <a class="btn light" href="https://www.google.com/patents/US20160127714"><i class="icon-doc" title="URL"></i>URL</a>
   <!-- Links -->
@@ -82,7 +81,7 @@
 
 <li class="post-block">
   <div>
-  <p itemscope itemtype="http://schema.org/Article" class="post-meta">Carlo Dal Mutto, Giulio Marin, Abbas Rafii, Tony Zuccarino, <em>"Systems and Methods for Implementing Head Tracking Based Graphical User Interfaces (GUI) that Incorporate Gesture Reactive Interface Objects"</em>, Aquifi, Inc., US 20150192991 A1, 2015</p>
+  <p itemscope itemtype="http://schema.org/Article" class="post-meta">C. Dal Mutto, G. Marin, A. Rafii, T. Zuccarino, <em>"Systems and Methods for Implementing Head Tracking Based Graphical User Interfaces (GUI) that Incorporate Gesture Reactive Interface Objects"</em>, Aquifi, Inc., US 20150192991 A1, 2015</p>
   <!-- Links -->
     <a class="btn light" href="https://www.google.com/patents/US20150192991A1"><i class="icon-doc" title="URL"></i>URL</a>
   <!-- Links -->
@@ -173,6 +172,28 @@
   <h2 class="list-title">conferences</h2>
   <ul class="post-list enlarge">
     <li class="post-block">
+  <!-- Word cloud -->
+  <div class="right photo">
+  <a href="publications/conferences/agresti17deepfusion-wc.png" download="agresti17deepfusion-wc.png">
+  <img src="publications/conferences/agresti17deepfusion-wc.png">
+  </a>
+  </div>
+  <div class="post-meta">
+  <!-- Word cloud -->
+  <p itemscope itemtype="http://schema.org/Article" class="post-meta">G. Agresti, L. Minto, G. Marin, P. Zanuttigh, <em>"Deep Learning for Confidence Information in Stereo and ToF Data Fusion"</em>, ICCV Workshop: 3D Reconstruction meets Semantics, Venice, Italy, 2017</p>
+  <!-- Links -->
+  <a class="btn light" href="publications/conferences/agresti17deepfusion.pdf"><i class="icon-doc" title="Paper"></i>PDF</a>
+  <!-- Links -->
+  <!-- Bib -->
+  <a class="btn light" href="publications/conferences/agresti17deepfusion.bib"><i title="bib"></i>bib</a>
+  <!-- Bib -->
+  <!-- Poster -->
+  <a class="btn light" href="publications/conferences/agresti17deepfusion-poster.pdf"><i class="icon-attach" title="Poster"></i>Poster</a>
+  <!-- Poster -->
+  </div>
+</li>
+
+<li class="post-block">
   <!-- Word cloud -->
   <div class="right photo">
   <a href="publications/conferences/marin16fusionconfidence-wc.png" download="marin16fusionconfidence-wc.png">
