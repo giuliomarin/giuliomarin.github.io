@@ -16,6 +16,14 @@ fi
 # go to main folder
 pushd `dirname $0`/.. > /dev/null
 
+# reset branch
+git reset
+touch tmpfile # to avoid then stash pop an old stash
+git stash
+git pull
+git stash pop
+rm tmpfile
+
 # download web pages
 if [[ "`uname`" == 'Darwin' ]]; then
   COMMAND="curl"
