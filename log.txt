@@ -1,1 +1,4 @@
-Updated on Fri Sep 22 19:00:07 PDT 2017
+Updated on Sun Oct  1 10:52:51 CEST 2017
+Error processing google scholar
+<div>activitiesmonth: <activitiesmonth>1</activitiesmonth></div>
+<div>distyear: <distyear>779.29 km</distyear></div>
