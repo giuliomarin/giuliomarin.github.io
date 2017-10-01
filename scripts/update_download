@@ -5,7 +5,7 @@
 ## (to stop) launchctl unload $HOME/Library/LaunchAgents/com.giuliomarin.website.plist
 
 # check connectivity
-ping -c1 www.google.com > /dev/null
+ping -t 5 -c1 www.google.com > /dev/null
 if [ "$?" != 0 ]; then
   echo "No internet connection"
   exit 0
@@ -38,11 +38,11 @@ $COMMAND "https://www.runtastic.com/en/users/07b82bdf-b0df-9b46-97f1-0e6d19b40d8
 echo "Updated on `date`" > log.txt
 
 # pasre pages
-python scripts/parsehtml.py
+python scripts/parsehtml.py > log_parse.txt 2>&1
 
 # commit and push if different
 if git status | grep "data.html"; then
-  git add data.html log.txt
+  git add data.html log.txt log_parse.txt
   git commit -m "[**generated**] Update data"
   git push
 fi
