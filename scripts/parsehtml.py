@@ -20,10 +20,9 @@ try:
 	f = os.path.join(websitePath, 'downloaded/googlescholar_giuliomarin.html')
 	with open(f, 'r') as fid:
 		content = fid.read()
-		numcit = p.match(content).group(1)
-		print numcit
+		numcit = p.search(content)
 		if numcit is not None:
-			save('<div>numcit: <numcit>%s</numcit></div>' % numcit)
+			save('<div>numcit: <numcit>%s</numcit></div>' % numcit.group(1))
 except:
 	print 'Error processing google scholar'
 
