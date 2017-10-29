@@ -1,144 +1,144 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="author" content="Giulio Marin">
-    <title>Giulio Marin | Projects - LDPC codes</title>
+  <meta charset="utf-8">
+  <meta name="author" content="Giulio Marin">
+  <title>Giulio Marin | Projects - LDPC codes</title>
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon" />
+  <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon" />
 
- 	<link rel="stylesheet" type="text/css" href="../styles/base.css" />
+  <link rel="stylesheet" type="text/css" href="../styles/base.css" />
 
-    <link href="//fonts.googleapis.com/css?family=Dosis:400,700%7CBitter:400,400italic,700&subset=latin,latin" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=Dosis:400,700%7CBitter:400,400italic,700&subset=latin,latin" rel="stylesheet" type="text/css">
 </head>
 
 <body class="sidebar">
-    <div id="topbar" role="banner">
-        <a class="logo icon-btn" href="../index.html">
-            <i class="icon-home"></i>
-        </a>
-        <a class="icon-btn current" href="../projects.html">
-            <i class="icon-floppy"></i>
-        </a>
+  <div id="topbar" role="banner">
+    <a class="logo icon-btn" href="../index.html">
+      <i class="icon-home"></i>
+    </a>
+    <a class="icon-btn current" href="../projects.html">
+      <i class="icon-floppy"></i>
+    </a>
 
-        <ul class="inline-list title">
-            <li><a class="btn plain" href="../publications.html"><i class="icon-pencil" title="Publications"></i>Publications</a></li>
-            <li><a class="btn plain" href="../projects.html"><i class="icon-floppy" title="Projects"></i>Projects</a></li>
-            <li><a class="btn plain" href="../photos.html"><i class="icon-camera" title="Photos"></i>Photos</a></li>
-            <li><a class="btn plain" href="../extra.html"><i class="icon-tv" title="Extra"></i>Extra</a></li>
-        </ul>
+    <ul class="inline-list title">
+      <li><a class="btn plain" href="../publications.html"><i class="icon-pencil" title="Publications"></i>Publications</a></li>
+      <li><a class="btn plain" href="../projects.html"><i class="icon-floppy" title="Projects"></i>Projects</a></li>
+      <li><a class="btn plain" href="../photos.html"><i class="icon-camera" title="Photos"></i>Photos</a></li>
+      <li><a class="btn plain" href="../extra.html"><i class="icon-tv" title="Extra"></i>Extra</a></li>
+    </ul>
 
-        <a class="icon-btn nav-trigger" href="#nav">
-            <i class="icon-menu"></i>
-        </a>
-    </div>
+    <a class="icon-btn nav-trigger" href="#nav">
+      <i class="icon-menu"></i>
+    </a>
+  </div>
 
-   <section id="page" class="post" role="main">
+  <section id="page" class="post" role="main">
 
-        <header class="wrap post-header">
-            <h1 class="page-title">LDPC codes</h1>
-            <p class="post-meta subtitle"><time datetime="2013-03-20">2013/06/28</time></p>
-        </header>
+    <header class="wrap post-header">
+      <h1 class="page-title">LDPC codes</h1>
+      <p class="post-meta subtitle"><time datetime="2013-03-20">2013/06/28</time></p>
+    </header>
 
-        <hr/>
+    <hr/>
 
-        <article class="wrap post-content">
+    <article class="wrap post-content">
 
-    		<h3>Encoder and message passing decoder for LDPC codes (802.11n)</h3>
+      <h3>Encoder and message passing decoder for LDPC codes (802.11n)</h3>
 
-            <hr>
+      <hr>
 
-            <h4>Introduction</h4>
-            <p>Low density parity check (LDPC) codes are linear block codes approaching capacity. Turbo codes are an example of another capacity-approacing code family. There are many applications that use LDPC codes, including the standard for the satellite transmission DVB-S2, 10GBase-T Ethernet, and 802.11 Wi-Fi standard. LDPC codes are defined by a sparse parity check matrix that determines the performance of the transmission. The maximum likelihood decoding of an LDPC code is an NP-complete problem and sub-optimal decoding techniques rely on belief propagation.</p>
-            <p>This project cosinsts in the implementation in MATLAB of the encoder and message passing decoder for the LDPC codes used in the IEEE 802.11n standard. After a brief description of the encoder and fields of applications, the sum-product algorithm for message passing decoder is presented. The performance are then evaluated in AWGN settings in terms of BER and PER.</p>
-            <p>
-                <a class="btn" href="http://prezi.com/aqckvai6jux-/?utm_campaign=share&utm_medium=copy" target="_blank"><i class="icon-doc"></i>Presentation</a>
-            </p>
+      <h4>Introduction</h4>
+      <p>Low density parity check (LDPC) codes are linear block codes approaching capacity. Turbo codes are an example of another capacity-approacing code family. There are many applications that use LDPC codes, including the standard for the satellite transmission DVB-S2, 10GBase-T Ethernet, and 802.11 Wi-Fi standard. LDPC codes are defined by a sparse parity check matrix that determines the performance of the transmission. The maximum likelihood decoding of an LDPC code is an NP-complete problem and sub-optimal decoding techniques rely on belief propagation.</p>
+      <p>This project cosinsts in the implementation in MATLAB of the encoder and message passing decoder for the LDPC codes used in the IEEE 802.11n standard. After a brief description of the encoder and fields of applications, the sum-product algorithm for message passing decoder is presented. The performance are then evaluated in AWGN settings in terms of BER and PER.</p>
+      <p>
+        <a class="btn" href="http://prezi.com/aqckvai6jux-/?utm_campaign=share&utm_medium=copy" target="_blank"><i class="icon-doc"></i>Presentation</a>
+      </p>
 
-            <hr>
+      <hr>
 
-            <h4>Implementation</h4>
-            <p>The encoder uses a parity check matrix H of size 324x648, i.e. R = 1/2. The matrix is made of 27x27 blocks obtained by circular shifts of the prototype matrix</p>
-            <figure>
-              <img src="ldpc1.pdf" alt="Parity-check matrix"/>
-              <figcaption>Prototype matrix for H</figcaption>
-            </figure>
-            <p>and blocks of zeros. In order to generate valid codes the matrix H needs to be inverted. Exploiting its particular properties, H can be decomposed in 6 blocks and codes can be generated in linear time instead of cubic.</p>
-            <p>
-              The decoder is implemented using the sum-product algorithm in the log domain so that products become sums. Messages are exchanged in an iterative way between variable nodes, representing the columns of H, and check nodes, representing the rows of H.
-            </p>
-            <figure>
-              <img src="ldpc2.png" alt="Message passing"/>
-              <figcaption>Message passing</figcaption>
-            </figure>
+      <h4>Implementation</h4>
+      <p>The encoder uses a parity check matrix H of size 324x648, i.e. R = 1/2. The matrix is made of 27x27 blocks obtained by circular shifts of the prototype matrix</p>
+      <figure>
+        <img src="ldpc1.pdf" alt="Parity-check matrix"/>
+        <figcaption>Prototype matrix for H</figcaption>
+      </figure>
+      <p>and blocks of zeros. In order to generate valid codes the matrix H needs to be inverted. Exploiting its particular properties, H can be decomposed in 6 blocks and codes can be generated in linear time instead of cubic.</p>
+      <p>
+        The decoder is implemented using the sum-product algorithm in the log domain so that products become sums. Messages are exchanged in an iterative way between variable nodes, representing the columns of H, and check nodes, representing the rows of H.
+      </p>
+      <figure>
+        <img src="ldpc2.png" alt="Message passing"/>
+        <figcaption>Message passing</figcaption>
+      </figure>
 
-            <p>
-                <a class="btn" href="https://github.com/giuliomarin/tlc/tree/master/ldpc" target="_blank"><i class="icon-code"></i>MATLAB code</a>
-            </p>
+      <p>
+        <a class="btn" href="https://github.com/giuliomarin/tlc/tree/master/ldpc" target="_blank"><i class="icon-code"></i>MATLAB code</a>
+      </p>
 
-        </article>
+    </article>
 
-<!--
-       <footer class="wrap post-footer">
-           <a class="btn" href="https://github.com/giuliomarin" target="_blank">
-               <i class="icon-flickr"></i>
-               Follow me on Github
-           </a>
-       </footer> -->
-
-
-    </section>
-
-    <hr>
+    <!--
+    <footer class="wrap post-footer">
+    <a class="btn" href="https://github.com/giuliomarin" target="_blank">
+    <i class="icon-flickr"></i>
+    Follow me on Github
+  </a>
+</footer> -->
 
 
-    <aside id="sitemeta">
+</section>
 
-        <div class="mini-profile wrap" itemscope itemtype="http://schema.org/Person">
-            <a itemprop="name" href="../index.html"><img class="avatar photo" src="../images/profilo.jpeg"></a>
-            <h4 class="main-title"><a itemprop="name" href="../index.html">Giulio Marin</a></h4>
-            <h6 class="sub-title"><span itemprop="jobTitle">R&D Software Engineer</span></h6>
-            <p>
-                <ul class="inline-list">
-                    <li><a href="mailto:maringiu@dei.unipd.it"><i class="icon-envelop"></i> Email</a></li>
-                    <li><a href="../doc/giulio_marin_cv.pdf"><i class="icon-doc"></i> CV</a></li>
-                </ul>
-                <ul class="inline-list">
-                    <li><a href="http://scholar.google.com/citations?user=t9UpeEAAAAAJ&hl=en"><i class="icon-google"></i> Google scholar</a></li>
-                    <li><a href="http://www.linkedin.com/in/giuliomarin/en"><i class="icon-linkedin"></i> Linkedin</a></li>
-                    <li><a href="https://github.com/giuliomarin"><i class="icon-github"></i> GitHub</a></li>
-                </ul>
-            </p>
-        </div>
+<hr>
 
-        <nav id="nav" role="navigation">
-            <a class="home-link" href="../index.html">giuliomarin</a>
-            <ul class="nav-menu">
-                <li><a href="../publications.html"><i class="icon-pencil"></i>Publications</a></li>
-                <li><a href="../projects.html"><i class="icon-floppy"></i>Projects</a></li>
-                <li><a href="../photos.html"><i class="icon-camera"></i>Photos</a></li>
-                <li><a href="../extra.html"><i class="icon-tv"></i>Extra</a></li>
-            </ul>
-            <a id="close-nav" href="#"><i class="icon-close"></i></a>
-        </nav>
-    </aside>
 
-    <footer id="footer" class="wrap">
-        <p>&#169;2017&nbsp;<a href="../index.html">Giulio Marin</a></p>
-    </footer>
+<aside id="sitemeta">
 
-    <script>
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  <div class="mini-profile wrap" itemscope itemtype="http://schema.org/Person">
+    <a itemprop="name" href="../index.html"><img class="avatar photo" src="../images/profilo.jpeg"></a>
+    <h4 class="main-title"><a itemprop="name" href="../index.html">Giulio Marin</a></h4>
+    <h6 class="sub-title"><span itemprop="jobTitle">R&D Software Engineer</span></h6>
+    <p>
+      <ul class="inline-list">
+        <li><a href="mailto:maringiu@dei.unipd.it"><i class="icon-envelop"></i> Email</a></li>
+        <li><a href="../doc/giulio_marin_cv.pdf"><i class="icon-doc"></i> CV</a></li>
+      </ul>
+      <ul class="inline-list">
+        <li><a href="http://scholar.google.com/citations?user=t9UpeEAAAAAJ&hl=en"><i class="icon-google"></i> Google scholar</a></li>
+        <li><a href="http://www.linkedin.com/in/giuliomarin/en"><i class="icon-linkedin"></i> Linkedin</a></li>
+        <li><a href="https://github.com/giuliomarin"><i class="icon-github"></i> GitHub</a></li>
+      </ul>
+    </p>
+  </div>
 
-      ga('create', 'UA-89998134-1', 'auto');
-      ga('send', 'pageview');
+  <nav id="nav" role="navigation">
+    <a class="home-link" href="../index.html">giuliomarin</a>
+    <ul class="nav-menu">
+      <li><a href="../publications.html"><i class="icon-pencil"></i>Publications</a></li>
+      <li><a href="../projects.html"><i class="icon-floppy"></i>Projects</a></li>
+      <li><a href="../photos.html"><i class="icon-camera"></i>Photos</a></li>
+      <li><a href="../extra.html"><i class="icon-tv"></i>Extra</a></li>
+    </ul>
+    <a id="close-nav" href="#"><i class="icon-close"></i></a>
+  </nav>
+</aside>
 
-    </script>
+<footer id="footer" class="wrap">
+  <p>&#169;2017&nbsp;<a href="../index.html">Giulio Marin</a></p>
+</footer>
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-89998134-1', 'auto');
+ga('send', 'pageview');
+
+</script>
 
 </body>
 </html>
