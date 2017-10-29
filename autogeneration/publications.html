@@ -22,10 +22,9 @@
         $(document).ready(function(){
             var num_publications = $( "li.post-block" ).length;
             $("#numCitations").append("I currently have <b>" + num_publications + "</b> publications");
-        });
     $.get('data.html', function(data) {
     var num = ", with <a href=\"http://scholar.google.com/citations?user=t9UpeEAAAAAJ&hl=en\"><b>" + $(data).filter("div").find("numcit").text() + "</b></a> citations.";
-    $("#numCitations").append(num);
+    $("#numCitations").append(num);});
     });
     </script>
     <script>$.get('log.txt', function(data) {$("#lastUpdate").append(data);});</script>

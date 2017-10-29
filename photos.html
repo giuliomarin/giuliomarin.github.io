@@ -26,13 +26,13 @@
     </script>
 
     <script>
+    $(document).ready(function() {
         $.get('photos/california.html',function(data){
             var num_photos = $( "figure", data ).length;
-            $("#numPhotos_california").text(num_photos + " photos");
-        });
+            $("#numPhotos_california").text(num_photos + " photos");});
         $.get('photos/dolomiti.html',function(data){
             var num_photos = $( "figure", data ).length;
-            $("#numPhotos_dolomiti").text(num_photos + " photos");
+            $("#numPhotos_dolomiti").text(num_photos + " photos");});
         });
     </script>
 
