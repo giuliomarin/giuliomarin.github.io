@@ -5,7 +5,7 @@
 ## (to stop) launchctl unload $HOME/Library/LaunchAgents/com.giuliomarin.website.plist
 
 # check connectivity
-ping -t 5 -c1 www.google.com > /dev/null
+ping -c1 www.google.com > /dev/null
 if [ "$?" != 0 ]; then
   echo "No internet connection"
   exit 0
