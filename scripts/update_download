@@ -44,7 +44,7 @@ python scripts/parsehtml.py > log_parse.txt 2>&1
 # commit and push if different
 if git status | grep "data.html"; then
   git add data.html log.txt log_parse.txt
-  git commit -m "[**generated**] Update data"
+  git commit -m "[**generated**] Update data from `hostname`"
   git push
 fi
 
