@@ -21,12 +21,17 @@
 
     <link href="//fonts.googleapis.com/css?family=Dosis:400,700%7CBitter:400,400italic,700&subset=latin,latin" rel="stylesheet" type="text/css">
 
-    <!-- Add dynamic information  -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
     <script>
+      $(function(){
+        $("#my-footer").load("/footer.html");
+      });
+
+    <!-- Add dynamic information  -->
+    <script>
       $(document).ready(function(){
-        var num_photos = $( "figure").length;
-        $("#numPhotos").text(num_photos + " photos");
+        var numPhotos = $( "figure").length;
+        $("#numPhotos").text(numPhotos + " photos");
       });
     </script>
   </head>
@@ -243,65 +248,8 @@
 
     <hr>
 
+    <div id="my-footer"></div>
 
-    <aside id="sitemeta">
-
-      <div class="mini-profile wrap" itemscope itemtype="http://schema.org/Person">
-        <a itemprop="name" href="../index.html">
-          <img class="avatar photo" src="../images/profilo.jpeg">
-        </a>
-        <h4 class="main-title"><a itemprop="name" href="../index.html">Giulio Marin</a></h4>
-        <h6 class="sub-title"><span itemprop="jobTitle">R&D Software Engineer</span></h6>
-        <p>
-        <ul class="inline-list">
-          <li><a href="mailto:maringiu@dei.unipd.it"><i class="icon-envelop"></i> Email</a>
-          <li><a href="../doc/giulio_marin_cv.pdf"><i class="icon-doc"></i> CV</a>
-          </li>
-          </li>
-        </ul>
-      <ul class="inline-list">
-        <li><a href="http://scholar.google.com/citations?user=t9UpeEAAAAAJ&hl=en"><i class="icon-google"></i> Google scholar</a>
-        </li>
-        <li><a href="http://www.linkedin.com/in/giuliomarin/en"><i class="icon-linkedin"></i> Linkedin</a>
-        </li>
-        <li><a href="https://github.com/giuliomarin"><i class="icon-github"></i> GitHub</a>
-        </li>
-      </ul>
-      </p>
-    </div>
-
-  <nav id="nav" role="navigation">
-    <a class="home-link" href="../index.html">giuliomarin</a>
-    <ul class="nav-menu">
-      <li><a href="../publications.html"><i class="icon-pencil"></i>Publications</a>
-      </li>
-      <li><a href="../projects.html"><i class="icon-floppy"></i>Projects</a>
-      </li>
-      <li><a href="../photos.html"><i class="icon-camera"></i>Photos</a>
-      </li>
-      <li><a href="../extra.html"><i class="icon-tv"></i>Extra</a>
-      </li>
-    </ul>
-    <a id="close-nav" href="#"><i class="icon-close"></i></a>
-  </nav>
-  </aside>
-
-<footer id="footer" class="wrap">
-  <p>&#169;2012-2017&nbsp;<a href="../index.html">Giulio Marin</a>
-  </p>
-</footer>
-
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-                          })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-89998134-1', 'auto');
-  ga('send', 'pageview');
-
-</script>
-
-</body>
+  </body>
 
 </html>
