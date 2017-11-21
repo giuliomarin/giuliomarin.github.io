@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="author" content="Giulio Marin">
+    <title>Giulio Marin | Projects - Ray tracing</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon" />
+
+    <link rel="stylesheet" type="text/css" href="../styles/base.css" />
+
+    <link href="//fonts.googleapis.com/css?family=Dosis:400,700%7CBitter:400,400italic,700&subset=latin,latin" rel="stylesheet" type="text/css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script>
+      $(function(){
+        $("#my-footer").load("/footer.html");
+      });
+    </script>
+  </head>
+
+  <body class="sidebar">
+    <div id="topbar" role="banner">
+      <a class="logo icon-btn" href="../index.html">
+        <i class="icon-home"></i>
+      </a>
+      <a class="icon-btn current" href="../projects.html">
+        <i class="icon-floppy"></i>
+      </a>
+
+      <ul class="inline-list title">
+        <li><a class="btn plain" href="../publications.html"><i class="icon-pencil" title="Publications"></i>Publications</a></li>
+        <li><a class="btn plain" href="../projects.html"><i class="icon-floppy" title="Projects"></i>Projects</a></li>
+        <li><a class="btn plain" href="../photos.html"><i class="icon-camera" title="Photos"></i>Photos</a></li>
+        <li><a class="btn plain" href="../extra.html"><i class="icon-tv" title="Extra"></i>Extra</a></li>
+      </ul>
+
+      <a class="icon-btn nav-trigger" href="#nav">
+        <i class="icon-menu"></i>
+      </a>
+    </div>
+
+    <section id="page" class="post" role="main">
+
+      <header class="wrap post-header">
+        <h1 class="page-title">Ray tracing</h1>
+        <p class="post-meta subtitle"><time datetime="2017-11-21">2016/04/16</time></p>
+      </header>
+
+      <hr/>
+
+      <article class="wrap post-content">
+
+        <h3>Python implementation of ray tracing</h3>
+
+        <hr>
+
+        <h4>Introduction</h4>
+        <p>Ray tracing is a rendering technique for generating a 2D image of a 3D scene by tracing the path of light as pixels in an image plane and simulating the effects of its encounters with virtual objects in the scene. The technique is capable of producing a very high degree of visual realism. Ray tracing is capable of simulating a wide variety of optical effects, such as reflection and refraction, scattering, and dispersion phenomena such as chromatic aberration.</p>
+
+        <hr>
+
+        <h4>Code</h4>
+        <p>The python script is capable of rendering different objects, such as spheres, triangles, planes and checkerboards. A scene is simply a collection of objects with some properties like position, color and reflection. There are two possible lighting objects, directional and point light. The input to the script is a text file with specified lights and objects.<br>
+        For each pixel in the virtual camera, the program trace the ray to the scene and if it intersect an object, its reflection is computed. The output of the algorithm is a color value for each pixel in the image. This is an example of scene produced by the script.</p>
+        <figure>
+          <img src="https://raw.githubusercontent.com/giuliomarin/cvip-python/master/raytracer/test.png" alt="Spheres on checkerboard"/>
+          <figcaption>Spheres on checkerboard</figcaption>
+        </figure>
+
+        <p>
+          <a class="btn" href="https://github.com/giuliomarin/cvip-python/tree/master/raytracer" target="_blank"><i class="icon-code"></i>Python code</a>
+        </p>
+
+      </article>
+
+    </section>
+
+    <hr>
+
+    <div id="my-footer"></div>
+
+  </body>
+</html>
