@@ -206,7 +206,7 @@ if __name__ == '__main__':
     templateCv = os.path.join(websitePath, 'autogeneration/giulio_marin_cv_tofill.tex')
     templatePubsCvSection = os.path.join(websitePath, 'autogeneration/cvSection.tex')
     templateNewPaperCv = os.path.join(websitePath, 'autogeneration/cvPaper.tex')
-    outCv = '/Users/giulio/Dropbox (Personal)/Giulio/Documents/Curriculum_Vitae/latex/giulio_marin_cv.tex'
+    outCv = '/Users/giulio/Dropbox (Personal)/Giulio/Documents/Curriculum_Vitae/latex/giulio_marin_cv_pub.tex'
 
 
     ## Add publications
@@ -223,12 +223,11 @@ if __name__ == '__main__':
 
     # curriculum
     publications = addPublicationsToCv(templatePubsCvSection, templateNewPaperCv, pubsList)
-    cvFilled = fillPlaceholder(templateCv, 'publications', publications)
 
     ## write files
     open(outIndex, 'w').write(indexFilled)
     print('File generated: %s' % outIndex)
     open(outPublications, 'w').write(publicationsFilled)
     print('File generated: %s' % outPublications)
-    open(outCv, 'w').write(cvFilled)
+    open(outCv, 'w').write(publications)
     print('File generated: %s' % outCv)

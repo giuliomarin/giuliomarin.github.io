@@ -32,8 +32,8 @@
           var num = ", with <a href=\"http://scholar.google.com/citations?user=t9UpeEAAAAAJ&hl=en\"><b>" + $(data).filter("div").find("numcit").text() + "</b></a> citations.";
           $("#numCitations").append(num);});
       });
+      $.get('log.txt', function(data) {$("#lastUpdate").append(data);});
     </script>
-    <script>$.get('log.txt', function(data) {$("#lastUpdate").append(data);});</script>
   </head>
 
   <body class="sidebar">

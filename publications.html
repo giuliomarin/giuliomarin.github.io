@@ -18,7 +18,7 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
     <script>
-      $(function(){ 
+      $(function(){
         $("#my-footer").load("/footer.html");
       });
     </script>
@@ -31,8 +31,8 @@
         $.get('data.html', function(data) {
           var num = ", with <a href=\"http://scholar.google.com/citations?user=t9UpeEAAAAAJ&hl=en\"><b>" + $(data).filter("div").find("numcit").text() + "</b></a> citations.";
           $("#numCitations").append(num);});
-        $.get('log.txt', function(data) {$("#lastUpdate").append(data);});
       });
+      $.get('log.txt', function(data) {$("#lastUpdate").append(data);});
     </script>
   </head>
 
@@ -73,6 +73,17 @@
       <section class="wrap" id="patents">
         <h2 class="list-title">patents</h2>
         <ul class="post-list enlarge">
+          <li class="post-block">
+            <div>
+              <p itemscope itemtype="http://schema.org/Article" class="post-meta">A. Hazeghi, C. Dal Mutto, G. Marin, F. Peruch, M. Stoppa, A. Rafii, <em>"Systems and methods for compact space-time stereo three-dimensional depth sensing"</em>, Aquifi, Inc., ???, 2017</p>
+              <!-- Links -->
+              <a class="btn light" href="https://www.google.com/patents/US???"><i class="icon-doc" title="URL"></i>URL</a>
+              <!-- Links -->
+              <!-- Bib -->
+              <!-- Bib -->
+            </div>
+          </li>
+
           <li class="post-block">
             <div>
               <p itemscope itemtype="http://schema.org/Article" class="post-meta">A. Hazeghi, G. Marin, F. Peruch, C. Dal Mutto, A. Rafii, <em>"Systems and methods for reducing z-thickness and zero-order effects in depth cameras"</em>, Aquifi, Inc., US 2016 0127714, 2016</p>
@@ -371,6 +382,6 @@
 
       <div id="my-footer"></div>
 
-  </body>
+      </body>
 
-</html>
+    </html>
