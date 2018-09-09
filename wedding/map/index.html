@@ -11,15 +11,16 @@
   <style>
   body { margin:0; padding:0; }
   #map { position:absolute; top:0; bottom:0; width:100%; }
-  .session { position:relative;}
+  .session { position:relative; margin-left: 10px; margin-right: 10px}
+  #slider {width:100%}
   </style>
 </head>
 <body>
 
   <div id='map'></div>
   <div class='session' id='sliderbar'>
-    <input id='slider' class='row' type='range' min='1989' max='2018' step='1' value='2018' />
-    <label id='active-date'>2018</label>
+    <center id='active-date'>1989</center>
+    <input id='slider' class='row' type='range' min='1989' max='2020' step='0.05' value='1989' />
   </div>
   <div class='session'>
     <div class='row' id='filters'>
@@ -36,12 +37,12 @@
   var map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/mapbox/streets-v8',
-    center: [ -10, 30],
+    center: [ 0, 20],
     zoom: 1.5
   });
 
   var filterPerson = ['!=', ['string', ['get', 'person']], 'placeholder'];
-  var filterDate = ['<', ['number', ['to-number', ['get', 'date']]], 2018];
+  var filterDate = ['>=', ['number', ['to-number', ['get', 'date']]], 1989];
 
   $(document).ready(function() {
     $.ajax({
@@ -58,10 +59,8 @@
       lonfield: 'longitude',
       delimiter: ','
     }, function(err, data) {
-      console.log(data)
       map.on('load', function () {
         map.addLayer({
-
           'id': 'places',
           'type': 'circle',
           'source': {
@@ -71,12 +70,13 @@
           'paint': {
             'circle-radius': {
               'base': 5,
-              'stops': [[1, 8], [10, 5]]
+              'stops': [[1, 15], [10, 10]]
             },
             'circle-opacity': 0.8,
+            'circle-blur': 1,
             'circle-color':
             ['match', ['get', 'person'],
-            "giulio", '#1171FF',
+            "giulio", '#0071FF',
             'ilene', '#CC719B',
             '#AAAAAA']
           },
@@ -88,7 +88,7 @@
 
   document.getElementById('slider').addEventListener('input', function(e) {
     var date = parseInt(e.target.value);
-    filterDate = ['<', ['number', ['to-number', ['get', 'date']]], date]
+    filterDate = ['<=', ['number', ['to-number', ['get', 'date']]], date]
     map.setFilter('places', ['all', filterDate, filterPerson]);
     document.getElementById('active-date').innerText = date;
   });
@@ -102,7 +102,7 @@
     } else if (person === 'giulio') {
       filterPerson = ['match', ['get', 'person'], 'giulio', true, false];
     } else {
-      console.log('error');
+      console.log('person %s is not valid' % person);
     }
     map.setFilter('places', ['all', filterDate, filterPerson]);
   });
@@ -111,19 +111,22 @@
   var slider = document.getElementById("slider");
 
   slider.addEventListener('input', function(e) {
-    document.getElementById('active-date').innerText = slider.value;
+    document.getElementById('active-date').innerText = parseInt(slider.value);
   });
-  
+
   var interval = setInterval(function() {
-    if (slider.value >= 2018) clearInterval(interval);
+    if (slider.value >= slider.max) {
+      clearInterval(interval)
+      // slider.value = slider.min
+    }
     else {
       slider.stepUp();
       slider.dispatchEvent(new Event('input'));}
-    }, 1000);
+    }, 10);
 
     // DEBUG: To show coordinates of mouse click
-    // map.on('click', function (e) {console.log(e), console.log("%s,%s", e.lngLat.lat, e.lngLat.lng)});
-  </script>
+    map.on('click', function (e) {console.log(e), console.log("%s,%s", e.lngLat.lat, e.lngLat.lng)});
+    </script>
 
-</body>
-</html>
+  </body>
+  </html>
