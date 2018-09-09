@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset='utf-8' />
+  <title></title>
+  <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+  <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.47.0/mapbox-gl.js'></script>
+  <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.47.0/mapbox-gl.css' rel='stylesheet' />
+  <script src='csv2geojson.js'></script>
+  <style>
+  body { margin:0; padding:0; }
+  #map { position:absolute; top:0; bottom:0; width:100%; }
+  .session { position:relative;}
+  </style>
+</head>
+<body>
+
+  <div id='map'></div>
+  <div class='session' id='sliderbar'>
+    <input id='slider' class='row' type='range' min='1989' max='2018' step='1' value='2018' />
+    <label id='active-date'>2018</label>
+  </div>
+  <div class='session'>
+    <div class='row' id='filters'>
+      <input id='both' type='radio' name='toggle' value='both' checked='checked'>
+      <label for='both'>both</label>
+      <input id='ilene' type='radio' name='toggle' value='ilene'>
+      <label for='ilene'>ilene</label>
+      <input id='giulio' type='radio' name='toggle' value='giulio'>
+      <label for='giulio'>giulio</label>
+    </div>
+  </div>
+  <script>
+  mapboxgl.accessToken = 'pk.eyJ1IjoiZGFuc3dpY2siLCJhIjoiY2l1dTUzcmgxMDJ0djJ0b2VhY2sxNXBiMyJ9.25Qs4HNEkHubd4_Awbd8Og';
+  var map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/mapbox/streets-v8',
+    center: [ -10, 30],
+    zoom: 1.5
+  });
+
+  var filterPerson = ['!=', ['string', ['get', 'person']], 'placeholder'];
+  var filterDate = ['<', ['number', ['to-number', ['get', 'date']]], 2018];
+
+  $(document).ready(function() {
+    $.ajax({
+      type: "GET",
+      url: './places.csv',
+      dataType: "text",
+      success: function(csvData) {makeGeoJSON(csvData);}
+    });
+  });
+
+  function makeGeoJSON(csvData) {
+    csv2geojson.csv2geojson(csvData, {
+      latfield: 'latitude',
+      lonfield: 'longitude',
+      delimiter: ','
+    }, function(err, data) {
+      console.log(data)
+      map.on('load', function () {
+        map.addLayer({
+
+          'id': 'places',
+          'type': 'circle',
+          'source': {
+            'type': 'geojson',
+            'data': data
+          },
+          'paint': {
+            'circle-radius': {
+              'base': 5,
+              'stops': [[1, 8], [10, 5]]
+            },
+            'circle-opacity': 0.8,
+            'circle-color':
+            ['match', ['get', 'person'],
+            "giulio", '#1171FF',
+            'ilene', '#CC719B',
+            '#AAAAAA']
+          },
+          filter: ['all', filterDate, filterPerson]
+        });
+      });
+    });
+  }
+
+  document.getElementById('slider').addEventListener('input', function(e) {
+    var date = parseInt(e.target.value);
+    filterDate = ['<', ['number', ['to-number', ['get', 'date']]], date]
+    map.setFilter('places', ['all', filterDate, filterPerson]);
+    document.getElementById('active-date').innerText = date;
+  });
+
+  document.getElementById('filters').addEventListener('change', function(e) {
+    var person = e.target.value;
+    if (person === 'both') {
+      filterPerson = ['!=', ['string', ['get', 'person']], 'placeholder'];
+    } else if (person === 'ilene') {
+      filterPerson = ['match', ['get', 'person'], 'ilene', true, false];
+    } else if (person === 'giulio') {
+      filterPerson = ['match', ['get', 'person'], 'giulio', true, false];
+    } else {
+      console.log('error');
+    }
+    map.setFilter('places', ['all', filterDate, filterPerson]);
+  });
+
+  // Auto update slider
+  var slider = document.getElementById("slider");
+
+  slider.addEventListener('input', function(e) {
+    document.getElementById('active-date').innerText = slider.value;
+  });
+  
+  var interval = setInterval(function() {
+    if (slider.value >= 2018) clearInterval(interval);
+    else {
+      slider.stepUp();
+      slider.dispatchEvent(new Event('input'));}
+    }, 1000);
+
+    // DEBUG: To show coordinates of mouse click
+    // map.on('click', function (e) {console.log(e), console.log("%s,%s", e.lngLat.lat, e.lngLat.lng)});
+  </script>
+
+</body>
+</html>
