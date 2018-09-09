@@ -6,6 +6,7 @@ https://giuliomarin.github.io/index.html
 https://giuliomarin.github.io/photos.html
 https://giuliomarin.github.io/photos/california.html
 https://giuliomarin.github.io/photos/dolomiti.html
+https://giuliomarin.github.io/photos/engagement.html
 https://giuliomarin.github.io/projects.html
 https://giuliomarin.github.io/projects/cdma.html
 https://giuliomarin.github.io/projects/hand_modeling.html
