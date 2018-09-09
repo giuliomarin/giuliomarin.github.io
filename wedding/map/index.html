@@ -34,11 +34,19 @@
   </div>
   <script>
   mapboxgl.accessToken = 'pk.eyJ1IjoiZGFuc3dpY2siLCJhIjoiY2l1dTUzcmgxMDJ0djJ0b2VhY2sxNXBiMyJ9.25Qs4HNEkHubd4_Awbd8Og';
+  var zoom, center;
+  if (window.innerWidth <= 800) {
+    center = [ -40, 0]
+    zoom = 0;
+  } else {
+    center = [ 0, 30]
+    zoom = 1.5;
+  }
   var map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/mapbox/streets-v8',
-    center: [ 0, 20],
-    zoom: 1.5
+    center: center,
+    zoom: zoom
   });
 
   var filterPerson = ['!=', ['string', ['get', 'person']], 'placeholder'];
@@ -53,6 +61,8 @@
     });
   });
 
+  var slider = document.getElementById("slider");
+
   function makeGeoJSON(csvData) {
     csv2geojson.csv2geojson(csvData, {
       latfield: 'latitude',
@@ -60,19 +70,16 @@
       delimiter: ','
     }, function(err, data) {
       map.on('load', function () {
+        map.addSource('data', { type: 'geojson', data: data });
         map.addLayer({
           'id': 'places',
           'type': 'circle',
-          'source': {
-            'type': 'geojson',
-            'data': data
-          },
+          'source': 'data',
           'paint': {
             'circle-radius': {
               'base': 5,
               'stops': [[1, 15], [10, 10]]
             },
-            'circle-opacity': 0.8,
             'circle-blur': 1,
             'circle-color':
             ['match', ['get', 'person'],
@@ -83,49 +90,50 @@
           filter: ['all', filterDate, filterPerson]
         });
       });
-    });
-  }
 
-  document.getElementById('slider').addEventListener('input', function(e) {
-    var date = parseInt(e.target.value);
-    filterDate = ['<=', ['number', ['to-number', ['get', 'date']]], date]
-    map.setFilter('places', ['all', filterDate, filterPerson]);
-    document.getElementById('active-date').innerText = date;
-  });
+      document.getElementById('slider').addEventListener('input', function(e) {
+        var date = parseInt(e.target.value);
+        filterDate = ['<=', ['number', ['to-number', ['get', 'date']]], date]
+        map.setFilter('places', ['all', filterDate, filterPerson]);
+        document.getElementById('active-date').innerText = date;
+        const history = 5
+        map.setPaintProperty('places', 'circle-opacity', ['*', 1.5, ['-', 1, ['/', ['-', parseInt(slider.value), ['number', ['to-number', ['get', 'date']]]], history]]]);
+      });
 
-  document.getElementById('filters').addEventListener('change', function(e) {
-    var person = e.target.value;
-    if (person === 'both') {
-      filterPerson = ['!=', ['string', ['get', 'person']], 'placeholder'];
-    } else if (person === 'ilene') {
-      filterPerson = ['match', ['get', 'person'], 'ilene', true, false];
-    } else if (person === 'giulio') {
-      filterPerson = ['match', ['get', 'person'], 'giulio', true, false];
-    } else {
-      console.log('person %s is not valid' % person);
+      document.getElementById('filters').addEventListener('change', function(e) {
+        var person = e.target.value;
+        if (person === 'both') {
+          filterPerson = ['!=', ['string', ['get', 'person']], 'placeholder'];
+        } else if (person === 'ilene') {
+          filterPerson = ['match', ['get', 'person'], 'ilene', true, false];
+        } else if (person === 'giulio') {
+          filterPerson = ['match', ['get', 'person'], 'giulio', true, false];
+        } else {
+          console.log('person %s is not valid' % person);
+        }
+        map.setFilter('places', ['all', filterDate, filterPerson]);
+      });
+
+      // Auto update slider
+      slider.addEventListener('input', function(e) {
+        document.getElementById('active-date').innerText = parseInt(slider.value);
+      });
+
+      var interval = setInterval(function() {
+        if (slider.value >= slider.max) {
+          clearInterval(interval)
+          // slider.value = slider.min
+        }
+        else {
+          slider.stepUp();
+          slider.dispatchEvent(new Event('input'));}
+        }, 10);
+
+        // DEBUG: To show coordinates of mouse click
+        map.on('click', function (e) {console.log(e), console.log("%s,%s", e.lngLat.lat, e.lngLat.lng)});
+      });
     }
-    map.setFilter('places', ['all', filterDate, filterPerson]);
-  });
 
-  // Auto update slider
-  var slider = document.getElementById("slider");
-
-  slider.addEventListener('input', function(e) {
-    document.getElementById('active-date').innerText = parseInt(slider.value);
-  });
-
-  var interval = setInterval(function() {
-    if (slider.value >= slider.max) {
-      clearInterval(interval)
-      // slider.value = slider.min
-    }
-    else {
-      slider.stepUp();
-      slider.dispatchEvent(new Event('input'));}
-    }, 10);
-
-    // DEBUG: To show coordinates of mouse click
-    map.on('click', function (e) {console.log(e), console.log("%s,%s", e.lngLat.lat, e.lngLat.lng)});
     </script>
 
   </body>
