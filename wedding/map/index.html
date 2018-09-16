@@ -8,6 +8,7 @@
   <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.47.0/mapbox-gl.js'></script>
   <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.47.0/mapbox-gl.css' rel='stylesheet' />
   <script src='csv2geojson.js'></script>
+  <script src='https://api.tiles.mapbox.com/mapbox.js/plugins/turf/v2.0.0/turf.min.js' charset='utf-8'></script>
   <style>
   body { margin:0; padding:0; }
   #map { position:absolute; top:0; bottom:0; width:100%; }
@@ -46,11 +47,162 @@
     container: 'map',
     style: 'mapbox://styles/mapbox/streets-v8',
     center: center,
-    zoom: zoom
+    zoom: zoom,
+    // renderWorldCopies: false
   });
+
+  // DEBUG: To show coordinates of mouse click
+  // map.on('click', function (e) {console.log(e), console.log("%s,%s", e.lngLat.lat, e.lngLat.lng)});
 
   var filterPerson = ['!=', ['string', ['get', 'person']], 'placeholder'];
   var filterDate = ['>=', ['number', ['to-number', ['get', 'date']]], 1989];
+
+  // const segmentLength = 10 // kilometers
+  const numSegments = 20
+  const percSegmentsHistory = 0.2
+
+  // A simple line from origin to destination.
+  var route = {
+    "type": "FeatureCollection",
+    "features": [{
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": []
+      },
+      "properties": {
+        "person": "giulio"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": []
+      },
+      "properties": {
+        "person": "ilene"
+      }
+    }]
+  };
+
+  function closestIdUp (num, arr)
+  {
+    var id = 0
+    var curr = arr[id].date;
+    var diff = num - curr;
+    for (var i in arr) {
+      var newdiff = num - arr[i].date;
+      if (newdiff < 0)
+      break
+      if (newdiff < diff) {
+        diff = newdiff;
+        curr = arr[i].date;
+        id = i;
+      }
+    }
+    return id;
+  }
+
+  function closestIdDown (num, arr)
+  {
+    var id = arr.length - 1
+    var curr = arr[id].date;
+    var diff = curr - num;
+    for (var i = arr.length - 1; i >= 0; i--) {
+      var newdiff = arr[i].date - num;
+      if (newdiff < 0)
+      break
+      if (newdiff < diff) {
+        diff = newdiff;
+        curr = arr[i].date;
+        id = i;
+      }
+    }
+    return id;
+  }
+
+  function computeTravel(data)
+  {
+    var travel = {'coordinates': [], 'dates': [], 'distance': [], 'totdistance': [], 'step': []}
+    var trip = {
+      "type": "FeatureCollection",
+      "features": [{
+        "type": "Feature",
+        "geometry": {
+          "type": "LineString",
+          "coordinates": []
+        }
+      }]
+    };
+
+    for (var i = 0; i < data.length - 1; i++)
+    {
+      var delta = data[i + 1].date - data[i].date
+      if (delta <= 0) continue
+
+      // Draw an arc between the origin and destination of the two points
+      trip.features[0].geometry.coordinates = [data[i].coordinates, data[i+1].coordinates]
+      var lineDistance = turf.lineDistance(trip.features[0], 'kilometers');
+      const segmentLength = lineDistance / numSegments
+      // const numSegments = lineDistance / segmentLength;
+      const stepDate = delta / numSegments;
+      // TODO: maybe the segment does not contain the end
+      for (var j = 0; j <= numSegments; j ++) {
+        travel.step.push(j)
+        travel.dates.push(data[i].date + stepDate * j)
+        travel.distance.push(segmentLength * j)
+        travel.totdistance.push(lineDistance)
+        var segment = turf.along(trip.features[0], j * segmentLength, 'kilometers');
+        var coords = segment.geometry.coordinates;
+        coords[0] = (coords[0] < -180) ? coords[0] + 360 : coords[0];
+        coords[0] = (coords[0] > 180) ? coords[0] - 360 : coords[0];
+        coords[1] = (coords[1] < -180) ? coords[1] + 360 : coords[1];
+        coords[1] = (coords[1] > 180) ? coords[1] - 360 : coords[1];
+        travel.coordinates.push(coords);
+      }
+    }
+    return travel;
+  }
+
+  function getTrip(travel, y)
+  {
+    var x2 = 0
+    for (var i in travel.coordinates)
+    {
+      x2 = +i
+      if (travel.dates[i] > y) break
+    }
+    var x1 = x2 - Math.min(travel.step[x2], percSegmentsHistory * numSegments)
+    return travel.coordinates.slice(x1, x2)
+  }
+
+  function norm(x, y)
+  {
+    return Math.sqrt((x[0] - y[0]) * (x[0] - y[0]) + (x[1] - y[1]) * (x[1] - y[1]))
+  }
+
+  function fixDateLine(route)
+  {
+    var routeOut = jQuery.extend(true, {}, route);
+    for (var i = 0; i < routeOut.features.length; i++)
+    {
+      var coords = routeOut.features[i].geometry.coordinates
+      for (var j = 1; j < coords.length; j++)
+      {
+        if (norm(coords[j], coords[j - 1]) > 90)
+        {
+          var split = jQuery.extend(true, {}, routeOut.features[i]);
+
+          split.geometry.coordinates = routeOut.features[i].geometry.coordinates.slice(j)
+          routeOut.features[i].geometry.coordinates = routeOut.features[i].geometry.coordinates.slice(0, j)
+          routeOut.features.push(split)
+          break
+        }
+      }
+    }
+    return routeOut
+  }
 
   $(document).ready(function() {
     $.ajax({
@@ -63,13 +215,57 @@
 
   var slider = document.getElementById("slider");
 
+  var travel_giulio;
+  var travel_ilene;
+
   function makeGeoJSON(csvData) {
     csv2geojson.csv2geojson(csvData, {
       latfield: 'latitude',
       lonfield: 'longitude',
       delimiter: ','
     }, function(err, data) {
+
+      // Read data
+      data_giulio = []
+      data_ilene = []
+      for (var i in data.features)
+      {
+        var e = {'coordinates': data.features[i].geometry.coordinates, 'date': parseFloat(data.features[i].properties.date), 'name': data.features[i].properties.name}
+        if (data.features[i].properties.person == 'giulio') {data_giulio.push(e)}
+        else if (data.features[i].properties.person == 'ilene') {data_ilene.push(e)}
+      }
+      data_giulio.push(jQuery.extend(true, {}, data_giulio[data_giulio.length - 1]))
+      data_giulio[data_giulio.length - 1].date = parseFloat(slider.max)
+      data_ilene.push(jQuery.extend(true, {}, data_ilene[data_ilene.length - 1]))
+      data_ilene[data_ilene.length - 1].date = parseFloat(slider.max)
+
+      // Sot by date
+      data_giulio.sort(function(a, b) {return a.date - b.date;});
+      data_ilene.sort(function(a, b) {return a.date - b.date;});
+
+      // Compute trajectory
+      travel_giulio = computeTravel(data_giulio)
+      travel_ilene = computeTravel(data_ilene)
+
       map.on('load', function () {
+        map.addSource('route', {
+          "type": "geojson",
+          "data": route
+        });
+        map.addLayer({
+          "id": "route",
+          "source": "route",
+          "type": "line",
+          "paint": {
+            "line-width": 3,
+            "line-opacity": 0.8,
+            "line-color":
+            ['match', ['get', 'person'],
+            "giulio", '#0071FF',
+            'ilene', '#CC719B',
+            '#AAAAAA']
+          }
+        });
         map.addSource('data', { type: 'geojson', data: data });
         map.addLayer({
           'id': 'places',
@@ -89,15 +285,33 @@
           },
           filter: ['all', filterDate, filterPerson]
         });
+
+        // Auto update slider
+        var interval = setInterval(function() {
+          if (slider.value >= slider.max) {
+            // clearInterval(interval)
+            slider.value = slider.min
+          }
+          else {
+            slider.stepUp();
+            slider.dispatchEvent(new Event('input'));}
+          }, 500);
       });
 
-      document.getElementById('slider').addEventListener('input', function(e) {
-        var date = parseInt(e.target.value);
+      slider.addEventListener('input', function(e) {
+        var date = parseFloat(e.target.value);
         filterDate = ['<=', ['number', ['to-number', ['get', 'date']]], date]
         map.setFilter('places', ['all', filterDate, filterPerson]);
         document.getElementById('active-date').innerText = date;
-        const history = 5
-        map.setPaintProperty('places', 'circle-opacity', ['*', 1.5, ['-', 1, ['/', ['-', parseInt(slider.value), ['number', ['to-number', ['get', 'date']]]], history]]]);
+        const history = 2
+        map.setPaintProperty('places', 'circle-opacity', ['*', 1.5, ['-', 1, ['/', ['-', parseFloat(slider.value), ['number', ['to-number', ['get', 'date']]]], history]]]);
+
+        const y = parseFloat(slider.value)
+        route.features = route.features.splice(0, 2)
+        route.features[0].geometry.coordinates = getTrip(travel_giulio, y)
+        route.features[1].geometry.coordinates = getTrip(travel_ilene, y)
+        route = fixDateLine(route)
+        map.getSource('route').setData(route);
       });
 
       document.getElementById('filters').addEventListener('change', function(e) {
@@ -112,29 +326,15 @@
           console.log('person %s is not valid' % person);
         }
         map.setFilter('places', ['all', filterDate, filterPerson]);
+        map.setFilter('route', filterPerson);
       });
 
-      // Auto update slider
       slider.addEventListener('input', function(e) {
         document.getElementById('active-date').innerText = parseInt(slider.value);
       });
 
-      var interval = setInterval(function() {
-        if (slider.value >= slider.max) {
-          clearInterval(interval)
-          // slider.value = slider.min
-        }
-        else {
-          slider.stepUp();
-          slider.dispatchEvent(new Event('input'));}
-        }, 10);
-
-        // DEBUG: To show coordinates of mouse click
-        map.on('click', function (e) {console.log(e), console.log("%s,%s", e.lngLat.lat, e.lngLat.lng)});
       });
     }
-
     </script>
-
   </body>
   </html>
