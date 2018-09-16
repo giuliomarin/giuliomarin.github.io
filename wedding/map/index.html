@@ -226,8 +226,8 @@
     }, function(err, data) {
 
       // Read data
-      data_giulio = []
-      data_ilene = []
+      var data_giulio = []
+      var data_ilene = []
       for (var i in data.features)
       {
         var e = {'coordinates': data.features[i].geometry.coordinates, 'date': parseFloat(data.features[i].properties.date), 'name': data.features[i].properties.name}
@@ -239,9 +239,37 @@
       data_ilene.push(jQuery.extend(true, {}, data_ilene[data_ilene.length - 1]))
       data_ilene[data_ilene.length - 1].date = parseFloat(slider.max)
 
-      // Sot by date
+      // Sort by date
       data_giulio.sort(function(a, b) {return a.date - b.date;});
       data_ilene.sort(function(a, b) {return a.date - b.date;});
+
+      // List of dates
+      var dates = []
+      for (i in data_giulio) dates.push(data_giulio[i].date)
+      for (i in data_ilene) dates.push(data_ilene[i].date)
+      dates = dates.sort().filter(function(elem, index, self) { return index == self.indexOf(elem);});
+
+      // Add events to match date
+      var g = 0, i = 0;
+      for (i in dates)
+      {
+        if (data_giulio[i].date != dates[i])
+        {
+          var e = jQuery.extend(true, {}, data_giulio[i - 1]);
+          e.date = dates[i]
+          data_giulio.splice(i, 0, e);
+        }
+        if (data_ilene[i].date != dates[i])
+        {
+          var e = jQuery.extend(true, {}, data_ilene[i - 1]);
+          e.date = dates[i]
+          data_ilene.splice(i, 0, e);
+        }
+      }
+
+      console.log(dates)
+      console.log(data_giulio)
+      console.log(data_ilene)
 
       // Compute trajectory
       travel_giulio = computeTravel(data_giulio)
@@ -295,7 +323,7 @@
           else {
             slider.stepUp();
             slider.dispatchEvent(new Event('input'));}
-          }, 500);
+          }, 200);
       });
 
       slider.addEventListener('input', function(e) {
