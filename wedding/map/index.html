@@ -12,19 +12,24 @@
   <style>
   body { margin:0; padding:0; }
   #map { position:absolute; top:0; bottom:0; width:100%; }
-  .session { position:relative; margin-left: 10px; margin-right: 10px}
+  .session { position:relative; margin-top: 10px; margin-left: 10px; margin-right: 10px}
   #slider {width:100%}
+  .container { display: flex; justify-content: space-between; }
   </style>
 </head>
 <body>
 
   <div id='map'></div>
   <div class='session' id='sliderbar'>
-    <center id='active-date'>1989</center>
+    <div class='container'>
+    <div id='giulio-dist' style="color: #0071FF; margin-left: 10%">1989</div>
+    <div id='active-date'>1989</div>
+    <div id='ilene-dist' style="color: #CC719B; margin-right: 10%">1989</div>
+  </div>
     <input id='slider' class='row' type='range' min='1989' max='2020' step='0.01' value='1989'/>
   </div>
   <div class='session'>
-    <div class='row' id='filters'>
+    <div class='row' id='filters' style="display: none">
       <input id='both' type='radio' name='toggle' value='both' checked='checked'>
       <label for='both'>both</label>
       <input id='ilene' type='radio' name='toggle' value='ilene'>
@@ -188,6 +193,22 @@
   var travel_giulio;
   var travel_ilene;
 
+  function toFixed(value, precision) {
+    var power = Math.pow(10, precision || 0);
+    return String(Math.round(value * power) / power);
+}
+
+  function getDist(d)
+  {
+    var str = ''
+    if (d < 1000) str += toFixed(d, 0)
+    else if (d < 1000000) str += toFixed(d / 1000, 0) + 'K'
+    else if (d < 1000000000) str += toFixed(d / 1000000, 1) + 'M'
+    else str += toFixed(d, 0)
+    str += ' km'
+    return str
+  }
+
   function makeGeoJSON(csvData) {
     csv2geojson.csv2geojson(csvData, {
       latfield: 'latitude',
@@ -198,48 +219,51 @@
       // Read data
       var data_giulio = []
       var data_ilene = []
+      var dates = []
+      // Sort by date
+      data.features.sort(function(a, b) {return parseFloat(a.properties.date) - parseFloat(b.properties.date);});
+      data.features.forEach(function(f) {dates.push(parseFloat(f.properties.date))})
+      dates = dates.sort().filter(function(elem, index, self) { return index == self.indexOf(elem);});
       for (var i in data.features)
       {
-        var e = {'coordinates': data.features[i].geometry.coordinates, 'date': parseFloat(data.features[i].properties.date), 'name': data.features[i].properties.name}
-        if (data.features[i].properties.person == 'giulio') {data_giulio.push(e)}
-        else if (data.features[i].properties.person == 'ilene') {data_ilene.push(e)}
+        if (data.features[i].properties.person == 'giulio') {data_giulio.push(data.features[i])}
+        else if (data.features[i].properties.person == 'ilene') {data_ilene.push(data.features[i])}
       }
       data_giulio.push(jQuery.extend(true, {}, data_giulio[data_giulio.length - 1]))
-      data_giulio[data_giulio.length - 1].date = parseFloat(slider.max)
+      data_giulio[data_giulio.length - 1].properties.date = parseFloat(slider.max)
       data_ilene.push(jQuery.extend(true, {}, data_ilene[data_ilene.length - 1]))
-      data_ilene[data_ilene.length - 1].date = parseFloat(slider.max)
-
-      // Sort by date
-      data_giulio.sort(function(a, b) {return a.date - b.date;});
-      data_ilene.sort(function(a, b) {return a.date - b.date;});
-
-      // List of dates
-      var dates = []
-      for (i in data_giulio) dates.push(data_giulio[i].date)
-      for (i in data_ilene) dates.push(data_ilene[i].date)
-      dates = dates.sort().filter(function(elem, index, self) { return index == self.indexOf(elem);});
+      data_ilene[data_ilene.length - 1].properties.date = parseFloat(slider.max)
 
       // Add events to match date
       var g = 0, i = 0;
       for (i in dates)
       {
-        if (data_giulio[i].date != dates[i])
+        if (parseFloat(data_giulio[i].properties.date) != dates[i])
         {
           var e = jQuery.extend(true, {}, data_giulio[i - 1]);
-          e.date = dates[i]
+          e.properties.date = dates[i]
           data_giulio.splice(i, 0, e);
         }
-        if (data_ilene[i].date != dates[i])
+        if (parseFloat(data_ilene[i].properties.date) != dates[i])
         {
           var e = jQuery.extend(true, {}, data_ilene[i - 1]);
-          e.date = dates[i]
+          e.properties.date = dates[i]
           data_ilene.splice(i, 0, e);
         }
       }
 
+      data.features = []
+      data_giulio.forEach(function(f) {data.features.push(f)})
+      data_ilene.forEach(function(f) {data.features.push(f)})
+
+      var data_giulio_travel = []
+      var data_ilene_travel = []
+      data_giulio.forEach(function(f) {var e = {'coordinates': f.geometry.coordinates, 'date': parseFloat(f.properties.date), 'name': f.properties.name}; data_giulio_travel.push(e)})
+      data_ilene.forEach(function(f) {var e = {'coordinates': f.geometry.coordinates, 'date': parseFloat(f.properties.date), 'name': f.properties.name}; data_ilene_travel.push(e)})
+
       // Compute trajectory
-      travel_giulio = computeTravel(data_giulio)
-      travel_ilene = computeTravel(data_ilene)
+      travel_giulio = computeTravel(data_giulio_travel)
+      travel_ilene = computeTravel(data_ilene_travel)
 
       map.on('load', function () {
         map.addSource('route', {
@@ -281,6 +305,7 @@
         });
 
         var counter = 0
+        while (travel_giulio.dates[counter] < 2014) counter++;
         var dist_giulio = 0, dist_ilene = 0;
         function animate() {
           const y = parseFloat(slider.value)
@@ -292,14 +317,15 @@
 
           dist_giulio += travel_giulio.distance[counter]
           dist_ilene += travel_ilene.distance[counter]
-          // TODO: show distance
+          document.getElementById('giulio-dist').innerText = getDist(dist_giulio);
+          document.getElementById('ilene-dist').innerText = getDist(dist_ilene);
 
           slider.value = travel_giulio.dates[counter]
           slider.dispatchEvent(new Event('input'));
 
           if ((travel_giulio.distance[counter] == 0 && travel_giulio.totdistance[counter] != 0) || (travel_ilene.distance[counter] == 0 && travel_ilene.totdistance[counter] != 0))
           {
-            setTimeout(function() {counter = counter + 1; requestAnimationFrame(animate)}, 1000)
+            setTimeout(function() {counter = counter + 1; requestAnimationFrame(animate)}, 500)
           }
           else
           {
@@ -323,7 +349,7 @@
         filterDate = ['<=', ['number', ['to-number', ['get', 'date']]], date]
         map.setFilter('places', ['all', filterDate, filterPerson]);
         document.getElementById('active-date').innerText = date;
-        const history = 2
+        const history = 0.1
         map.setPaintProperty('places', 'circle-opacity', ['*', 1.5, ['-', 1, ['/', ['-', parseFloat(slider.value), ['number', ['to-number', ['get', 'date']]]], history]]]);
       });
 
