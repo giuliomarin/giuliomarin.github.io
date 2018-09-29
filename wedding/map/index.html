@@ -11,7 +11,7 @@
   <script src='https://api.tiles.mapbox.com/mapbox.js/plugins/turf/v2.0.0/turf.min.js' charset='utf-8'></script>
   <style>
   body { margin:0; padding:0; }
-  #map { position:absolute; top:0; bottom:0; width:100%; }
+  #map { position:absolute; top:0%; height: 100%; width:100%; }
   .session { position:relative; margin-top: 10px; margin-left: 10px; margin-right: 10px}
   #slider {width:100%}
   .container { display: flex; justify-content: space-between; }
@@ -40,13 +40,17 @@
   </div>
   <script>
   mapboxgl.accessToken = 'pk.eyJ1IjoiZGFuc3dpY2siLCJhIjoiY2l1dTUzcmgxMDJ0djJ0b2VhY2sxNXBiMyJ9.25Qs4HNEkHubd4_Awbd8Og';
-  var zoom, center;
+  var big, zoom, center;
   if (window.innerWidth <= 800) {
     center = [ -40, 0]
     zoom = 0;
+    big = false;
+    document.getElementById("map").style.height = "75%"
+    document.getElementById("map").style.top = "12.5%"
   } else {
     center = [ 0, 30]
-    zoom = 1.5;
+    zoom = 1.3;
+    big = true;
   }
   var map = new mapboxgl.Map({
     container: 'map',
@@ -203,7 +207,7 @@
     var str = ''
     if (d < 1000) str += toFixed(d, 0)
     else if (d < 1000000) str += toFixed(d / 1000, 0) + 'K'
-    else if (d < 1000000000) str += toFixed(d / 1000000, 1) + 'M'
+    else if (d < 1000000000) str += toFixed(d / 1000000, 2) + 'M'
     else str += toFixed(d, 0)
     str += ' km'
     return str
