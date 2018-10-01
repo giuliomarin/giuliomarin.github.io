@@ -94,6 +94,8 @@ function csv2geojson(x, options, callback) {
     var errors = [];
 
     for (var i = 0; i < parsed.length; i++) {
+        if (parsed[i]['person'].length == 0 || parsed[i]['person'].startsWith("#") || parsed[i]['person'].startsWith("//"))
+          continue
         if (parsed[i][lonfield] !== undefined &&
             parsed[i][lonfield] !== undefined) {
 
