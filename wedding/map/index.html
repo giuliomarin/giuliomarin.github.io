@@ -64,9 +64,8 @@
   // map.on('click', function (e) {console.log(e), console.log("%s,%s", e.lngLat.lat, e.lngLat.lng)});
 
   var filterPerson = ['!=', ['string', ['get', 'person']], 'placeholder'];
-  var filterDate = ['>=', ['number', ['to-number', ['get', 'date']]], 1989];
+  var filterDate = ['>=', ['number', ['to-number', ['get', 'datef']]], 1989];
 
-  // const segmentLength = 10 // kilometers
   const numSegments = 50
   const percSegmentsHistory = 0.4
 
@@ -111,7 +110,7 @@
 
     for (var i = 0; i < data.length - 1; i++)
     {
-      var delta = data[i + 1].date - data[i].date
+      var delta = data[i + 1].datef - data[i].datef
       if (delta <= 0) continue
 
       // Draw an arc between the origin and destination of the two points
@@ -123,7 +122,7 @@
       // TODO: maybe the segment does not contain the end
       for (var j = 0; j <= numSegments; j ++) {
         travel.step.push(j)
-        travel.dates.push(data[i].date + stepDate * j)
+        travel.dates.push(data[i].datef + stepDate * j)
         travel.distance.push(segmentLength * j)
         travel.totdistance.push(lineDistance)
         var segment = turf.along(trip.features[0], j * segmentLength, 'kilometers');
@@ -225,8 +224,8 @@
       var data_ilene = []
       var dates = []
       // Sort by date
-      data.features.sort(function(a, b) {return parseFloat(a.properties.date) - parseFloat(b.properties.date);});
-      data.features.forEach(function(f) {dates.push(parseFloat(f.properties.date))})
+      data.features.sort(function(a, b) {return a.properties.datef - b.properties.datef;});
+      data.features.forEach(function(f) {dates.push(f.properties.date)})
       dates = dates.sort().filter(function(elem, index, self) { return index == self.indexOf(elem);});
       for (var i in data.features)
       {
@@ -234,24 +233,26 @@
         else if (data.features[i].properties.person == 'ilene') {data_ilene.push(data.features[i])}
       }
       data_giulio.push(jQuery.extend(true, {}, data_giulio[data_giulio.length - 1]))
-      data_giulio[data_giulio.length - 1].properties.date = parseFloat(slider.max)
+      data_giulio[data_giulio.length - 1].properties.datef = parseFloat(slider.max)
       data_ilene.push(jQuery.extend(true, {}, data_ilene[data_ilene.length - 1]))
-      data_ilene[data_ilene.length - 1].properties.date = parseFloat(slider.max)
+      data_ilene[data_ilene.length - 1].properties.datef = parseFloat(slider.max)
 
       // Add events to match date
       var g = 0, i = 0;
       for (i in dates)
       {
-        if (parseFloat(data_giulio[i].properties.date) != dates[i])
+        if (data_giulio[i].properties.date != dates[i])
         {
-          var e = jQuery.extend(true, {}, data_giulio[i - 1]);
+          var e = jQuery.extend(true, {}, data_giulio[Math.max(0, i - 1)]);
           e.properties.date = dates[i]
+          e.properties.datef = csv2geojson.date2float(dates[i])
           data_giulio.splice(i, 0, e);
         }
-        if (parseFloat(data_ilene[i].properties.date) != dates[i])
+        if (data_ilene[i].properties.date != dates[i])
         {
-          var e = jQuery.extend(true, {}, data_ilene[i - 1]);
+          var e = jQuery.extend(true, {}, data_ilene[Math.max(0, i - 1)]);
           e.properties.date = dates[i]
+          e.properties.datef = csv2geojson.date2float(dates[i])
           data_ilene.splice(i, 0, e);
         }
       }
@@ -262,8 +263,8 @@
 
       var data_giulio_travel = []
       var data_ilene_travel = []
-      data_giulio.forEach(function(f) {var e = {'coordinates': f.geometry.coordinates, 'date': parseFloat(f.properties.date), 'name': f.properties.name}; data_giulio_travel.push(e)})
-      data_ilene.forEach(function(f) {var e = {'coordinates': f.geometry.coordinates, 'date': parseFloat(f.properties.date), 'name': f.properties.name}; data_ilene_travel.push(e)})
+      data_giulio.forEach(function(f) {var e = {'coordinates': f.geometry.coordinates, 'datef': f.properties.datef, 'name': f.properties.name}; data_giulio_travel.push(e)})
+      data_ilene.forEach(function(f) {var e = {'coordinates': f.geometry.coordinates, 'datef': f.properties.datef, 'name': f.properties.name}; data_ilene_travel.push(e)})
 
       // Compute trajectory
       travel_giulio = computeTravel(data_giulio_travel)
@@ -350,11 +351,12 @@
 
       slider.addEventListener('input', function(e) {
         var date = parseFloat(e.target.value);
-        filterDate = ['<=', ['number', ['to-number', ['get', 'date']]], date]
+        console.log(date)
+        filterDate = ['<=', ['number', ['to-number', ['get', 'datef']]], date]
         map.setFilter('places', ['all', filterDate, filterPerson]);
         document.getElementById('active-date').innerText = date;
         const history = 0.1
-        map.setPaintProperty('places', 'circle-opacity', ['*', 1.5, ['-', 1, ['/', ['-', parseFloat(slider.value), ['number', ['to-number', ['get', 'date']]]], history]]]);
+        map.setPaintProperty('places', 'circle-opacity', ['*', 1.5, ['-', 1, ['/', ['-', parseFloat(slider.value), ['number', ['to-number', ['get', 'datef']]]], history]]]);
       });
 
       document.getElementById('filters').addEventListener('change', function(e) {
