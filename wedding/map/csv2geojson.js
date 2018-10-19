@@ -42,6 +42,15 @@ function auto(x) {
     return dsv(delimiter).parse(x);
 }
 
+function date2float(str) {
+  var YMD = str.split('/');
+  var Y = parseFloat(YMD[0]);
+  var M = parseFloat(YMD[1]);
+  var D = parseFloat(YMD[2]);
+  datef = Y + ((M-1) * 31 + D) / (12 * 31)
+  return datef
+}
+
 function csv2geojson(x, options, callback) {
 
     if (!callback) {
@@ -96,6 +105,11 @@ function csv2geojson(x, options, callback) {
     for (var i = 0; i < parsed.length; i++) {
         if (parsed[i]['person'].length == 0 || parsed[i]['person'].startsWith("#") || parsed[i]['person'].startsWith("//"))
           continue
+
+        // Compute date as float number
+        datef = date2float(parsed[i]['date'])
+        parsed[i]['datef'] = datef
+
         if (parsed[i][lonfield] !== undefined &&
             parsed[i][lonfield] !== undefined) {
 
@@ -188,6 +202,7 @@ module.exports = {
     dsv: dsv,
     auto: auto,
     csv2geojson: csv2geojson,
+    date2float: date2float,
     toLine: toLine,
     toPolygon: toPolygon
 };
