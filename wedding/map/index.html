@@ -170,10 +170,18 @@
       {
         if (norm(coords[j], coords[j - 1]) > 90)
         {
-          // TODO: add coordinate at 180
+          // TODO: improve coordinate at 180
           var split = jQuery.extend(true, {}, routeOut.features[i]);
           split.geometry.coordinates = routeOut.features[i].geometry.coordinates.slice(j)
           routeOut.features[i].geometry.coordinates = routeOut.features[i].geometry.coordinates.slice(0, j)
+          if (coords[j-1][0] > 0) {
+            routeOut.features[i].geometry.coordinates[j - 1][0] = 180.
+            split.geometry.coordinates[0][0] = -180.
+          }
+          else {
+            routeOut.features[i].geometry.coordinates[j - 1][0] = -180.
+            split.geometry.coordinates[0][0] = 180.
+          }
           routeOut.features.push(split)
           break
         }
@@ -313,7 +321,6 @@
         while (travel_giulio.dates[counter] < 2014) counter++;
         var dist_giulio = 0, dist_ilene = 0;
         function animate() {
-          const y = parseFloat(slider.value)
           route.features = route.features.splice(0, 2)
           route.features[0].geometry.coordinates = getTrip2(travel_giulio, counter)
           route.features[1].geometry.coordinates = getTrip2(travel_ilene, counter)
@@ -350,13 +357,12 @@
       })
 
       slider.addEventListener('input', function(e) {
-        var date = parseFloat(e.target.value);
-        console.log(date)
+        var date = parseFloat(e.target.value) + 0.003;
         filterDate = ['<=', ['number', ['to-number', ['get', 'datef']]], date]
         map.setFilter('places', ['all', filterDate, filterPerson]);
         document.getElementById('active-date').innerText = date;
-        const history = 0.1
-        map.setPaintProperty('places', 'circle-opacity', ['*', 1.5, ['-', 1, ['/', ['-', parseFloat(slider.value), ['number', ['to-number', ['get', 'datef']]]], history]]]);
+        const history = 0.05
+        map.setPaintProperty('places', 'circle-opacity', ['*', 1.5, ['-', 1, ['/', ['-', date, ['number', ['to-number', ['get', 'datef']]]], history]]]);
       });
 
       document.getElementById('filters').addEventListener('change', function(e) {
@@ -375,7 +381,9 @@
       });
 
       slider.addEventListener('input', function(e) {
-        document.getElementById('active-date').innerText = parseInt(slider.value);
+        const y = parseInt(Math.floor(slider.value))
+        const m = parseInt(Math.floor((slider.value % 1) * 365 / 31) + 1)
+        document.getElementById('active-date').innerText = y + "/" + m;
       });
 
     });
