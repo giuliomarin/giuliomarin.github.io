@@ -1,38 +1,38 @@
 <!doctype html>
 <html lang="en">
 
-  <head>
-    <meta charset="utf-8">
-    <meta name="author" content="Giulio Marin">
-    <title>Giulio Marin | Publications</title>
-    <meta name="description" content="Giulio Marin's publications'.">
-    <meta name="keywords" content="Engineer,Aquifi,R&amp;D,Algorithms,PhD,Software,Computer Vision,Machine Learning,Deep Learning,paper,publication,journal,book,chapter,patent,thesis,Leap Motion,ToF,stereo,gesture recognition,Springer, Depth camera,palm">
+<head>
+  <meta charset="utf-8">
+  <meta name="author" content="Giulio Marin">
+  <title>Giulio Marin | Publications</title>
+  <meta name="description" content="Giulio Marin's publications'.">
+  <meta name="keywords" content="Engineer,Aquifi,R&amp;D,Algorithms,PhD,Software,Computer Vision,Machine Learning,Deep Learning,paper,publication,journal,book,chapter,patent,thesis,Leap Motion,ToF,stereo,gesture recognition,Springer, Depth camera,palm">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
 
-    <link rel="stylesheet" type="text/css" href="styles/base.css" />
+  <link rel="stylesheet" type="text/css" href="styles/base.css" />
 
-    <link href="//fonts.googleapis.com/css?family=Dosis:400,700%7CBitter:400,400italic,700&subset=latin,latin" rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=Dosis:400,700%7CBitter:400,400italic,700&subset=latin,latin" rel="stylesheet" type="text/css">
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-    <script>
-      $(function(){
-        $("#my-footer").load("/footer.html");
-      });
-    </script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+  <script>
+  $(function(){
+    $("#my-footer").load("/footer.html");
+  });
+  </script>
 
-    <!-- Add dynamic information  -->
-    <script>
-      $(document).ready(function(){
-        var num_publications = $( "li.post-block" ).length;
-        $("#numCitations").append("I currently have <b>" + num_publications + "</b> publications");
-        $.get('data.html', function(data) {
-          var num = ", with <a href=\"http://scholar.google.com/citations?user=t9UpeEAAAAAJ&hl=en\"><b>" + $(data).filter("div").find("numcit").text() + "</b></a> citations.";
-          $("#numCitations").append(num);});
-      });
-      $.get('log.txt', function(data) {$("#lastUpdate").append(data);});
+  <!-- Add dynamic information  -->
+  <script>
+  $(document).ready(function(){
+    var num_publications = $( "li.post-block" ).length;
+    $("#numCitations").append("I currently have <b>" + num_publications + "</b> publications");
+    $.get('data.html', function(data) {
+      var num = ", with <a href=\"http://scholar.google.com/citations?user=t9UpeEAAAAAJ&hl=en\"><b>" + $(data).filter("div").find("numcit").text() + "</b></a> citations.";
+      $("#numCitations").append(num);});
+    });
+    $.get('log.txt', function(data) {$("#lastUpdate").append(data);});
     </script>
   </head>
 
@@ -188,6 +188,25 @@
               <!-- Links -->
               <!-- Bib -->
               <a class="btn light" href="publications/journals/marin15gesture.bib"><i title="bib"></i>bib</a>
+              <!-- Bib -->
+            </div>
+          </li>
+
+          <li class="post-block">
+            <!-- Word cloud -->
+            <div class="right photo">
+              <a href="publications/journals/agresti18fusion-wc.png">
+                <img src="publications/journals/agresti18fusion-wc.png">
+              </a>
+            </div>
+            <div class="post-meta">
+              <!-- Word cloud -->
+              <p itemscope itemtype="http://schema.org/Article" class="post-meta">Gianluca Agresti, Ludovico Minto, Giulio Marin, Pietro Zanuttigh, <em>"Stereo and ToF data fusion by learning from synthetic data"</em>, Information Fusion, Elsevier, 2018</p>
+              <!-- Links -->
+              <a class="btn light" href="https://doi.org/10.1016/j.inffus.2018.11.006"><i class="icon-doc" title="URL"></i>URL</a>
+              <!-- Links -->
+              <!-- Bib -->
+              <a class="btn light" href="publications/journals/agresti18fusion.bib"><i title="bib"></i>bib</a>
               <!-- Bib -->
             </div>
           </li>
@@ -393,6 +412,6 @@
 
       <div id="my-footer"></div>
 
-      </body>
+    </body>
 
     </html>
