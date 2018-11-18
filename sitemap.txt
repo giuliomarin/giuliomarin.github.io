@@ -18,6 +18,4 @@ https://giuliomarin.github.io/publications.html
 https://giuliomarin.github.io/scripts/parsehtml.py
 https://giuliomarin.github.io/warning.html
 https://giuliomarin.github.io/wedding/engagement.html
-https://giuliomarin.github.io/wedding/familytree/graph.html
 https://giuliomarin.github.io/wedding/index.html
-https://giuliomarin.github.io/wedding/map/index.html
