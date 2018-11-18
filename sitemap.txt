@@ -6,7 +6,6 @@ https://giuliomarin.github.io/index.html
 https://giuliomarin.github.io/photos.html
 https://giuliomarin.github.io/photos/california.html
 https://giuliomarin.github.io/photos/dolomiti.html
-https://giuliomarin.github.io/photos/engagement.html
 https://giuliomarin.github.io/projects.html
 https://giuliomarin.github.io/projects/cdma.html
 https://giuliomarin.github.io/projects/hand_modeling.html
@@ -18,4 +17,7 @@ https://giuliomarin.github.io/projects/wsn.html
 https://giuliomarin.github.io/publications.html
 https://giuliomarin.github.io/scripts/parsehtml.py
 https://giuliomarin.github.io/warning.html
+https://giuliomarin.github.io/wedding/engagement.html
+https://giuliomarin.github.io/wedding/familytree/graph.html
+https://giuliomarin.github.io/wedding/index.html
 https://giuliomarin.github.io/wedding/map/index.html
