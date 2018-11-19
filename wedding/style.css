@@ -1,4 +1,6 @@
 @import url('../styles/base.css');
-html{background-color:rgb(255,245,245)}
-hr{background:rgb(191,173,131)}
-#nav:target{background:rgb(191,173,131)}
+html{background-color: rgb(255,245,245)}
+hr{background: rgb(191,173,131)}
+#nav:target{background: rgb(191,173,131)}
+#close-nav{background-color: rgb(191,173,131)}
+.post-content a {color: rgb(191,173,131)}
