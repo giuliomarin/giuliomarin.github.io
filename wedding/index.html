@@ -78,6 +78,49 @@
           <img src="http://files3.caprionline.it/card/122_Villa_Luppis/imagemain/1_z.jpg" alt="Villa Luppis"/>
           <figcaption>Villa Luppis</figcaption>
         </figure>
+        <hr>
+        <h4>Wedding events</h4>
+        <div>
+          <div class="names">
+            <p>Friday<br>June 21</p>
+            <p>Saturday<br>June 22</p>
+            <p>Sunday<br>June 23</p>
+          </div>
+          <div class ="container" style="height: 330px">
+          <div class="timings">
+            <div> <span> 10:00 </span>AM </div>
+            <div> <span> 11:00 </span>AM </div>
+            <div> <span> 12:00 </span>PM </div>
+            <div> <span> 1:00 </span>PM </div>
+            <div> <span> 2:00 </span>PM </div>
+            <div> <span> 3:00 </span>PM </div>
+            <div> <span> 4:00 </span>PM </div>
+            <div> <span> 5:00 </span>PM </div>
+            <div> <span> 6:00 </span>PM </div>
+            <div> <span> 7:00 </span>PM </div>
+            <div> <span> 8:00 </span>PM </div>
+            <div> <span> 9:00 </span>PM </div>
+          </div>
+          <div class="days" id="events21"></div>
+          <div class="days" id="events22"></div>
+          <div class="days" id="events23"></div>
+          </div>
+        </div>
+        <script src="./script.js"></script>
+        <script>
+        const events21 = [
+          {title: "Welcome drinks", location: '<a href="https://goo.gl/maps/NVkVAYUb5Gw" target="_blank">Villa Luppis</a>', start: 7 * 60, end: 10 * 60} ];
+        layOutDay(events21, "events21", 5);
+        const events22 = [
+          {title: "Ceremony", location: '<a href="https://goo.gl/maps/NVkVAYUb5Gw" target="_blank">Villa Luppis</a>', start: 6 * 60, end: 7.5 * 60},
+          {title: "Dinner", location: '<a href="https://goo.gl/maps/NVkVAYUb5Gw" target="_blank">Villa Luppis</a>', start: 8 * 60, end: 10 * 60} ];
+        layOutDay(events22, "events22", 6);
+        const events23 = [
+          {title: "Brunch", location: "Prosecco winery", start: 1 * 60, end: 6 * 60} ];
+        layOutDay(events23, "events23", 7);
+        </script>
+        <p></p>
+        <!-- <a class="btn" href="webcal://p30-calendars.icloud.com/published/2/NjY3MzczODQzNjY3MzczOPTH_LNuQUNeqaCaxSBtvDXrGpuMuhu8IC1iPXeS7YuI4FGUZf1McSZKidoHiPYsQDvj0ME8GqJTsFXwO6PxQ7U">Add to Calendar</a> -->
       </article>
     </section>
 
