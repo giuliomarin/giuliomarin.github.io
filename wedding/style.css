@@ -5,6 +5,9 @@ hr{background: rgb(191,173,131)}
 #close-nav{background-color: rgb(191,173,131)}
 .post-content a {color: rgb(191,173,131)}
 
+.en, .it {display: none}
+.en:lang(en), .it:lang(it) {display: block}
+
 .container {
   width: 90%;
   display: inline-flex;

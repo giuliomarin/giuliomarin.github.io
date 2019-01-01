@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en-US">
 <head>
   <meta charset="utf-8">
   <title>I and G wedding</title>
@@ -32,6 +32,9 @@
   $(function(){
     $("#my-footer").load("./footer.html");
   });
+
+  // Set language
+  document.getElementsByTagName("html")[0].lang = navigator.language || navigator.userLanguage;
   </script>
 </head>
 
@@ -63,7 +66,8 @@
     <hr/>
 
     <article class="wrap post-content">
-      <h3>We are getting married!</h3>
+      <h3 class="en">We are getting married!</h3>
+      <h3 class="it">Ci sposiamo!</h3>
       <figure class="photo my-gallery">
         <img src="https://serenagenovese.b-cdn.net/wp-content/uploads/2018/06/beach-engagement-photographer-italy-caorle_0038.jpg" alt="Beach"/>
         <figcaption>Getting married</figcaption>
@@ -119,9 +123,8 @@
           {title: "Brunch", location: "Prosecco winery", start: 1 * 60, end: 6 * 60} ];
         layOutDay(events23, "events23", 7);
         </script>
-        <p>
-          Add these events to your calendar.
-        </p>
+        <p class="en">Add these events to your calendar.</p>
+        <p class="it">Aggiungi questi eventi al tuo calendario.</p>
         <a class="btn" href="webcal://p30-calendars.icloud.com/published/2/NjY3MzczODQzNjY3MzczOPTH_LNuQUNeqaCaxSBtvDXrGpuMuhu8IC1iPXeS7YuI4FGUZf1McSZKidoHiPYsQDvj0ME8GqJTsFXwO6PxQ7U"><i class="icon-apple"></i>Apple</a>
         <a class="btn" href="http://www.google.com/calendar/render?cid=webcal://p30-calendars.icloud.com/published/2/NjY3MzczODQzNjY3MzczOPTH_LNuQUNeqaCaxSBtvDXrGpuMuhu8IC1iPXeS7YuI4FGUZf1McSZKidoHiPYsQDvj0ME8GqJTsFXwO6PxQ7U"><i class="icon-google"></i>Google</a>
       </article>
