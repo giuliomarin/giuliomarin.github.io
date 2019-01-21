@@ -193,7 +193,7 @@ if __name__ == '__main__':
     websitePath = os.path.abspath(os.path.join(os.path.dirname(os.path.realpath(__file__)), '..'))
 
     # filenames
-    pubsList = '/Users/giulio/Dropbox (Personal)/Giulio/Education/7_Publications/publications.csv'
+    pubsList = '/Users/giulio/Dropbox/Giulio/Education/7_Publications/publications.csv'
     templatePubsSection = os.path.join(websitePath, 'autogeneration/publicationsSection.html')
     templateNewPaperPublications = os.path.join(websitePath, 'autogeneration/publicationsPaper.html')
     templateNewPaperIndex = os.path.join(websitePath, 'autogeneration/indexPaper.html')
@@ -206,7 +206,7 @@ if __name__ == '__main__':
     templateCv = os.path.join(websitePath, 'autogeneration/giulio_marin_cv_tofill.tex')
     templatePubsCvSection = os.path.join(websitePath, 'autogeneration/cvSection.tex')
     templateNewPaperCv = os.path.join(websitePath, 'autogeneration/cvPaper.tex')
-    outCv = '/Users/giulio/Dropbox (Personal)/Giulio/Documents/Curriculum_Vitae/latex/giulio_marin_cv_pub.tex'
+    outCv = '/Users/giulio/Dropbox/Giulio/Documents/Curriculum_Vitae/latex/giulio_marin_cv_pub.tex'
 
 
     ## Add publications

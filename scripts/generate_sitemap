@@ -1,5 +1,6 @@
 cd `dirname $0`
 website=https://giuliomarin.github.io
 pushd .. > /dev/null
-find . | grep ".html" | grep -v "autogeneration" | grep -v "downloaded" | grep -v "footer" | sed 's/\.\///g' | awk -v ws="$website" '{printf(ws "/" $0 "\n")}' | sort > sitemap.txt
+find . | grep -v ".py" | grep ".html" | grep -v "autogeneration" | grep -v "downloaded" | grep -v "footer" | sed 's/\.\///g' | awk -v ws="$website" '{printf(ws "/" $0 "\n")}' | sort > sitemap.txt
+
 popd > /dev/null
