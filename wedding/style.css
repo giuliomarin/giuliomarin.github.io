@@ -92,3 +92,17 @@ hr{background: rgb(191,173,131)}
 .event p {
   margin: 0 auto
 }
+
+.row {
+  display: flex;
+}
+
+.row .column {
+  margin-right: 7px;
+  margin-left: 7px;
+}
+
+.row .photo img {
+width: 100%;
+height: 100%;
+}
