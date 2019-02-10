@@ -19,3 +19,4 @@ https://giuliomarin.github.io/wedding/engagement.html
 https://giuliomarin.github.io/wedding/index.html
 https://giuliomarin.github.io/wedding/map.html
 https://giuliomarin.github.io/wedding/rsvp.html
+https://giuliomarin.github.io/wedding/registry.html
