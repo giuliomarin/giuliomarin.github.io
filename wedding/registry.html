@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>I and G wedding | Registry</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/wedding/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/wedding/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/wedding/favicon/favicon-16x16.png">
+  <link rel="manifest" href="/wedding/favicon/site.webmanifest">
+  <link rel="mask-icon" href="/wedding/favicon/safari-pinned-tab.svg" color="#5bbad5">
+  <link rel="shortcut icon" href="/wedding/favicon/favicon.ico">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="msapplication-config" content="/wedding/favicon/browserconfig.xml">
+  <meta name="theme-color" content="#ffffff">
+
+  <link rel="stylesheet" type="text/css" href="./style.css" />
+
+  <!-- PhotoSwipe -->
+  <link rel="stylesheet" href="../styles/photoswipe/photoswipe.css">
+  <link rel="stylesheet" href="../styles/photoswipe/default-skin/default-skin.css">
+  <script src="../styles/photoswipe/photoswipe.min.js"></script>
+  <script src="../styles/photoswipe/photoswipe-ui-default.min.js"></script>
+  <script src="../styles/photoswipe/utils.js"></script>
+
+  <link href="//fonts.googleapis.com/css?family=Dosis:400,700%7CBitter:400,400italic,700&subset=latin,latin" rel="stylesheet" type="text/css">
+
+  <style>
+  .comment {color: gray}
+  </style>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+  <script>
+  $(function(){
+    $("#my-footer").load("footer.html");
+  });
+  </script>
+
+  <!-- Add dynamic information  -->
+  <script>
+  $(document).ready(function(){
+    var numPhotos = $( "figure").length;
+    $("#numPhotos").text(numPhotos + " photos");
+  });
+  </script>
+</head>
+
+<body class="sidebar">
+  <div id="topbar" role="banner">
+    <a class="logo icon-btn" href="index.html">
+      <i class="icon-home"></i>
+    </a>
+
+    <ul class="inline-list title">
+      <li><a class="btn plain" href="hotel.html"><i class="icon-newspaper" title="Hotel"></i>Hotel</a></li>
+      <li><a class="btn plain" href="engagement.html"><i class="icon-camera" title="Photos"></i>Photos</a></li>
+      <li><a class="btn plain" href="activities.html"><i class="icon-pitch" title="Activities"></i>Activities</a></li>
+      <li><a class="btn plain" href="rsvp.html"><i class="icon-pencil" title="RSVP"></i>RSVP</a></li>
+      <li><a class="btn plain" href="registry.html"><i class="icon-list-bullet" title="Registry"></i>Registry</a></li>
+    </ul>
+
+    <a class="icon-btn nav-trigger" href="#nav">
+      <i class="icon-menu"></i>
+    </a>
+  </div>
+
+  <section id="page" class="post" role="main">
+
+    <header class="wrap post-header">
+      <h1 class="page-title">Registry</h1>
+      <!-- <p class="post-meta subtitle" id="numPhotos"></p> -->
+    </header>
+
+    <hr/>
+
+    <article class="wrap post-content">
+      <p>
+        Having you at our special day is all we could hope for.
+        We could not come up with a registry because we're still figuring out our home base. Giulio sleeps in Seattle but works in Palo Alto, Ilene moved to Seattle but keeps talking about the nice weather in California. Plus, Giulio's visa is expiring and Ilene may need to pack up for Italy 😜.
+      </p>
+
+      <p>
+        However, if you’re still thinking of buying us a gift, we would appreciate any monetary contribution to our future plans together. Here are some ideas:
+      </p>
+
+      <ul>
+        <li>Honeymoon fund <span class="comment">- honeymoon? It's time to think about that?!</span></li>
+        <li>Giulio's first trip to Rome <span class="comment">- and he calls himself an Italian</span></li>
+        <li>Couples massage <span class="comment">- because we fell asleep and don't remember the last one</span></li>
+        <li>Flights for Giulio's family to visit us <span class="comment">- in case Giulio misses home food</span></li>
+        <li>Contribute to our mortgage <span class="comment">- there will be always a room for you</span></li>
+        <li>Flights to visit Ilene's family <span class="comment">- until we convince them to come visit us</span></li>
+        <li>Cooking class for Ilene <span class="comment">- because Giulio wants a sous-chef</span></li>
+        <li>Date night fund <span class="comment">- just to keep the spark alive</span></li>
+      </ul>
+    </br>
+
+      <center>
+        <a class="btn" href="https://paypal.me/pools/c/8bXar46d5R" target="_blank">
+          Donate here
+        </a>
+      </center>
+    </article>
+  </section>
+
+  <!-- Root element of PhotoSwipe. Must have class pswp. -->
+  <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="pswp__bg"></div>
+    <div class="pswp__scroll-wrap">
+      <div class="pswp__container">
+        <div class="pswp__item"></div>
+        <div class="pswp__item"></div>
+        <div class="pswp__item"></div>
+      </div>
+
+      <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+      <div class="pswp__ui pswp__ui--hidden">
+        <div class="pswp__top-bar">
+          <div class="pswp__counter"></div>
+          <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+          <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+          <button class="pswp__button pswp__button--share" title="Share"></button>
+          <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+          <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+          <!-- element will get class pswp__preloader--active when preloader is running -->
+          <div class="pswp__preloader">
+            <div class="pswp__preloader__icn">
+              <div class="pswp__preloader__cut">
+                <div class="pswp__preloader__donut"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+          <div class="pswp__share-tooltip"></div>
+        </div>
+
+        <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+        </button>
+
+        <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+        </button>
+
+        <div class="pswp__caption">
+          <div class="pswp__caption__center"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+  initPhotoSwipeFromDOM('.my-gallery');
+  </script>
+
+  <hr>
+
+  <div id="my-footer"></div>
+
+</body>
+</html>
