@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en-US">
 <head>
   <meta charset="utf-8">
   <title>I and G wedding | Activities</title>
@@ -24,6 +24,10 @@
   <script>
   $(function(){
     $("#my-footer").load("./footer.html");
+  });
+
+  $(document).ready(function(){
+    $("html").attr("lang", navigator.language || navigator.userLanguage);
   });
   </script>
 </head>

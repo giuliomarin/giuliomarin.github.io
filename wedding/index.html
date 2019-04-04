@@ -34,8 +34,9 @@
     $("#my-footer").load("./footer.html");
   });
 
-  // Set language
-  document.getElementsByTagName("html")[0].lang = navigator.language || navigator.userLanguage;
+  $(document).ready(function(){
+    $("html").attr("lang", navigator.language || navigator.userLanguage);
+  });
   </script>
 </head>
 
