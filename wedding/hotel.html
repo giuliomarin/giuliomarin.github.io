@@ -39,6 +39,7 @@
   $(document).ready(function(){
     var numPhotos = $( "figure").length;
     $("#numPhotos").text(numPhotos + " photos");
+    $("html").attr("lang", navigator.language);
   });
   </script>
 </head>
