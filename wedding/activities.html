@@ -18,6 +18,13 @@
 
   <link rel="stylesheet" type="text/css" href="./style.css" />
 
+  <!-- PhotoSwipe -->
+  <link rel="stylesheet" href="../styles/photoswipe/photoswipe.css">
+  <link rel="stylesheet" href="../styles/photoswipe/default-skin/default-skin.css">
+  <script src="../styles/photoswipe/photoswipe.min.js"></script>
+  <script src="../styles/photoswipe/photoswipe-ui-default.min.js"></script>
+  <script src="../styles/photoswipe/utils.js"></script>
+
   <link href="//fonts.googleapis.com/css?family=Dosis:400,700%7CBitter:400,400italic,700&subset=latin,latin" rel="stylesheet" type="text/css">
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
@@ -63,29 +70,112 @@
       <h3>Page under construction</h3>
     </article>
 
-    <!-- <hr/> -->
+    <hr/>
 
-    <!-- <article class="wrap post-content">
+    <article class="wrap post-content">
       <h4>Dolomites</h4>
+      <p>
+        Enjoy peaceful hikes with stunning views of the Italian Alps. Make sure to stop at a "rifugio" for lunch. Check out <a href="https://goo.gl/maps/NheGeJ6LYNL2" target="_blank">Cortina d'Ampezzo</a> area.
+      </p>
       <figure class="photo my-gallery column">
         <img src="https://dreamofitaly.com/wp-content/uploads/2010/05/bigstock-Countryside-view-of-the-valley-87681455-862x575.jpg" data-src="https://dreamofitaly.com/wp-content/uploads/2010/05/bigstock-Countryside-view-of-the-valley-87681455-862x575.jpg"/>
       </figure>
       <hr>
 
       <h4>Venice</h4>
+      <p>
+        Probably this place doesn't need introduction.
+      </p>
       <figure class="photo my-gallery column">
         <img src="https://accelerator-origin.kkomando.com/wp-content/uploads/2017/04/tourists-on-gondolas-in-Venice.jpg" data-src="https://accelerator-origin.kkomando.com/wp-content/uploads/2017/04/tourists-on-gondolas-in-Venice.jpg"/>
       </figure>
       <hr>
 
       <h4>McArthurGlen - Designer Outlet</h4>
+      <p>
+        For those of you who enjoy shopping.
+      </p>
       <figure class="photo my-gallery column">
         <img src="https://media-cdn.tripadvisor.com/media/photo-o/12/f6/84/2b/the-main-entrance-of.jpg" data-src="https://media-cdn.tripadvisor.com/media/photo-o/12/f6/84/2b/the-main-entrance-of.jpg"/>
       </figure>
       <hr>
-    </article> -->
 
+      <h4>E-Bike in Tuscany</h4>
+      <p>
+        Explore the real taste of Tuscany. Wine tasting, panoramic tour, family ride.
+      </p>
+      <a class="btn" href="https://bolgherilocals.com" target="_blank">bolgheri.locals</a>
+      <div class="row">
+        <figure class="photo my-gallery column">
+          <img src="https://scontent-sjc3-1.cdninstagram.com/vp/4297a545da40d5afc582a209176e68be/5D42A42B/t51.2885-15/sh0.08/e35/s640x640/54732030_345533829647444_5827544911472811068_n.jpg?_nc_ht=scontent-sjc3-1.cdninstagram.com" data-src="https://scontent-sjc3-1.cdninstagram.com/vp/4297a545da40d5afc582a209176e68be/5D42A42B/t51.2885-15/sh0.08/e35/s640x640/54732030_345533829647444_5827544911472811068_n.jpg?_nc_ht=scontent-sjc3-1.cdninstagram.com"/>
+          <figcaption>Bike</figcaption>
+        </figure>
+
+        <figure class="photo my-gallery column">
+          <img src="https://scontent-sjc3-1.cdninstagram.com/vp/3b7b400f096398fa8f56473708e9b4ed/5D4A3E90/t51.2885-15/sh0.08/e35/s640x640/52991534_2264720547135123_7148275719966894672_n.jpg?_nc_ht=scontent-sjc3-1.cdninstagram.com" data-src="https://scontent-sjc3-1.cdninstagram.com/vp/3b7b400f096398fa8f56473708e9b4ed/5D4A3E90/t51.2885-15/sh0.08/e35/s640x640/52991534_2264720547135123_7148275719966894672_n.jpg?_nc_ht=scontent-sjc3-1.cdninstagram.com"/>
+          <figcaption>Food</figcaption>
+        </figure>
+
+        <figure class="photo my-gallery column">
+          <img src="https://scontent-sjc3-1.cdninstagram.com/vp/f8b88d927a8b2abdf47327e7d21d3ab3/5D345C5E/t51.2885-15/sh0.08/e35/s640x640/51735997_117879725990401_3625776753131485164_n.jpg?_nc_ht=scontent-sjc3-1.cdninstagram.com" data-src="https://scontent-sjc3-1.cdninstagram.com/vp/f8b88d927a8b2abdf47327e7d21d3ab3/5D345C5E/t51.2885-15/sh0.08/e35/s640x640/51735997_117879725990401_3625776753131485164_n.jpg?_nc_ht=scontent-sjc3-1.cdninstagram.com"/>
+          <figcaption>History</figcaption>
+        </figure>
+      </div>
+      <hr>
+    </article>
+
+  </section>
+
+  <!-- Root element of PhotoSwipe. Must have class pswp. -->
+  <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="pswp__bg"></div>
+    <div class="pswp__scroll-wrap">
+      <div class="pswp__container">
+        <div class="pswp__item"></div>
+        <div class="pswp__item"></div>
+        <div class="pswp__item"></div>
+      </div>
+
+      <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+      <div class="pswp__ui pswp__ui--hidden">
+        <div class="pswp__top-bar">
+          <div class="pswp__counter"></div>
+          <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+          <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+          <button class="pswp__button pswp__button--share" title="Share"></button>
+          <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+          <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+          <!-- element will get class pswp__preloader--active when preloader is running -->
+          <div class="pswp__preloader">
+            <div class="pswp__preloader__icn">
+              <div class="pswp__preloader__cut">
+                <div class="pswp__preloader__donut"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+          <div class="pswp__share-tooltip"></div>
+        </div>
+
+        <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+        </button>
+
+        <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+        </button>
+
+        <div class="pswp__caption">
+          <div class="pswp__caption__center"></div>
+        </div>
+      </div>
+    </div>
   </div>
+
+  <script>
+  initPhotoSwipeFromDOM('.my-gallery');
+  </script>
 
   <hr>
 
