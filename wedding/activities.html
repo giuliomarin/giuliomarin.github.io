@@ -36,6 +36,17 @@
   $(document).ready(function(){
     $("html").attr("lang", navigator.language || navigator.userLanguage);
   });
+
+  function setEventsExpired() {
+      var d1 = new Date();
+      var divs = document.getElementsByClassName('event-expire');
+      for (var i = 0; i < divs.length; i++) {
+        const d2 = new Date(divs[i].getAttribute("end"))
+        if (d1.getTime() > d2.getTime()) {
+          divs[i].style.opacity = "0.5";
+        }
+      }
+    }
   </script>
 </head>
 
@@ -62,17 +73,56 @@
 
     <header class="wrap post-header">
       <h1 class="page-title">Activities</h1>
+      <p class="post-meta subtitle">** Page under construction **</p>
     </header>
 
     <hr/>
 
     <article class="wrap post-content">
-      <h3>Page under construction</h3>
+      <h3>Wedding activities</h3>
+
+      <div class="event-expire" end="June 21, 2019 20:00:00">
+      <h4 id="drinks">Welcome drinks</h4>
+      <p>
+        When: Friday, June 21, 2019 from 5PM<br/>
+        Location: <a href="https://goo.gl/maps/NVkVAYUb5Gw" target="_blank">Villa Luppis</a>
+      </p>
+      </div>
+      <hr>
+
+      <div class="event-expire" end="June 22, 2019 17:00:00">
+      <h4 id="ceremony">Ceremony</h4>
+      <p>
+        When: Saturday, June 22, 2019 at 4PM<br/>
+        Location: <a href="https://goo.gl/maps/NVkVAYUb5Gw" target="_blank">Villa Luppis</a>
+      </p>
+      </div>
+      <hr>
+
+      <div class="event-expire" end="June 22, 2019 23:59:00">
+      <h4 id="dinner">Dinner and party</h4>
+      <p>
+        When: Saturday, June 22, 2019 at 7PM<br/>
+        Location: <a href="https://goo.gl/maps/NVkVAYUb5Gw" target="_blank">Villa Luppis</a>
+      </p>
+      </div>
+      <hr>
+
+      <div class="event-expire" end="June 23, 2019 16:00:00">
+      <h4 id="brunch">Brunch at the winery</h4>
+      <p>
+        When: Sunday, June 23, 2019 from 11AM<br/>
+        Location: <a href="https://goo.gl/maps/YkiECmgY7GJ2" target="_blank">L'Antica Quercia</a>
+      </p>
+      </div>
+      <hr>
+
     </article>
 
     <hr/>
 
     <article class="wrap post-content">
+      <h3>Suggested activities before or after the wedding</h3>
       <h4 id="dolomites">Dolomites</h4>
       <p>
         Enjoy peaceful hikes with stunning views of the Italian Alps. Make sure to stop at a "rifugio" for lunch. Check out <a href="https://goo.gl/maps/NheGeJ6LYNL2" target="_blank">Cortina d'Ampezzo</a> area.
@@ -175,6 +225,7 @@
 
   <script>
   initPhotoSwipeFromDOM('.my-gallery');
+  setEventsExpired();
   </script>
 
   <hr>
