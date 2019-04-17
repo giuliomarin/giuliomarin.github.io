@@ -1,3 +1,3 @@
-<div>numcit: <numcit>500</numcit></div>
+<div>numcit: <numcit>502</numcit></div>
 <div>activitiesmonth: <activitiesmonth>0</activitiesmonth></div>
 <div>distyear: <distyear>0 km</distyear></div>
