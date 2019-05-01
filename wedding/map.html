@@ -46,6 +46,7 @@
     </a>
 
     <ul class="inline-list title">
+      <li><a class="btn plain" href="about.html"><i class="icon-tv" title="About us"></i>About us</a></li>
       <li><a class="btn plain" href="hotel.html"><i class="icon-newspaper" title="Hotel"></i>Hotel</a></li>
       <li><a class="btn plain" href="engagement.html"><i class="icon-camera" title="Photos"></i>Photos</a></li>
       <li><a class="btn plain" href="activities.html"><i class="icon-pitch" title="Activities"></i>Activities</a></li>
@@ -102,10 +103,9 @@
       zoom = 0;
       big = false;
       document.getElementById("map").style.height = "200px"
-      console.log(document.getElementById("map").style)
     } else {
       center = [ -50, 40]
-      zoom = 1.3;
+      zoom = 0.5;
       big = true;
     }
     var map = new mapboxgl.Map({
