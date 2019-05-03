@@ -81,15 +81,15 @@
 
       <hr>
 
-      <h4 class="en"> How many miles have we traveled together? </h4>
-      <h4 class="it"> Quanti chilometri abbiamo percorso insieme? </h4>
+      <h4 class="en"> How many miles have we traveled since we met? </h4>
+      <h4 class="it"> Quanti chilometri abbiamo percorso da quando ci conosciamo? </h4>
       <div class='session' id='sliderbar'>
         <div class='container'>
           <div id='giulio-dist' style="font-family: monospace; color: #0071FF; margin-left: 10%">1989</div>
           <div id='active-date' style="font-family: monospace">1989</div>
           <div id='ilene-dist' style="font-family: monospace; color: #CC719B; margin-right: 10%">1989</div>
         </div>
-        <input id='slider' class='row' type='range' min='1989' max='2020' step='0.01' value='1989'/>
+        <input id='slider' class='row' type='range' min='1989' max='2019.58' step='0.01' value='1989'/>
       </div>
       <div class='session'>
         <div class='row' id='filters' style="display: none">
@@ -139,7 +139,7 @@ var map = new mapboxgl.Map({
 var filterPerson = ['!=', ['string', ['get', 'person']], 'placeholder'];
 var filterDate = ['>=', ['number', ['to-number', ['get', 'datef']]], 1989];
 
-const numSegments = 50
+const numSegments = 40
 const percSegmentsHistory = 0.4
 
 // A simple line from origin to destination.
