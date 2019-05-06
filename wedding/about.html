@@ -288,12 +288,19 @@ function toFixed(value, precision) {
 
 function getDist(d)
 {
+  // Convert to miles
+  var unit = 'km'
+  if (document.documentElement.lang.startsWith("en")) {
+    d *= 0.62
+    unit = 'mi'
+  }
+
   var str = ''
   if (d < 1000) str += toFixed(d, 0)
   else if (d < 1000000) str += toFixed(d / 1000, 0) + 'K'
   else if (d < 1000000000) str += toFixed(d / 1000000, 2) + 'M'
   else str += toFixed(d, 0)
-  str += ' km'
+  str += ' ' + unit
   return str
 }
 
@@ -382,7 +389,7 @@ function makeGeoJSON(csvData) {
         'paint': {
           'circle-radius': {
             'base': 5,
-            'stops': [[1, 15], [10, 10]]
+            'stops': [[1, 10], [10, 10]]
           },
           'circle-blur': 1,
           'circle-color':
