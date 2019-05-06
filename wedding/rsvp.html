@@ -24,6 +24,7 @@
   <script>
   $(function(){
     $("#my-footer").load("./footer.html");
+    $("html").attr("lang", navigator.language || navigator.userLanguage);
   });
   </script>
 </head>

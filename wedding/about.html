@@ -38,6 +38,10 @@
   $(function(){
     $("#my-footer").load("./footer.html");
   });
+
+  $(document).ready(function(){
+    $("html").attr("lang", navigator.language || navigator.userLanguage);
+  });
   </script>
 </head>
 
