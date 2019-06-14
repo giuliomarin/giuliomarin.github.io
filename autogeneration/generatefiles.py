@@ -203,10 +203,9 @@ if __name__ == '__main__':
     outIndex = os.path.join(websitePath, 'index.html')
 
     # curriculum
-    templateCv = os.path.join(websitePath, 'autogeneration/giulio_marin_cv_tofill.tex')
     templatePubsCvSection = os.path.join(websitePath, 'autogeneration/cvSection.tex')
     templateNewPaperCv = os.path.join(websitePath, 'autogeneration/cvPaper.tex')
-    outCv = '/Users/giulio/Dropbox/Giulio/Documents/Curriculum_Vitae/latex/giulio_marin_cv_pub.tex'
+    outCv = '/Users/giulio/Documents/curriculum_vitae/latex/giulio_marin_cv_pub.tex'
 
 
     ## Add publications
