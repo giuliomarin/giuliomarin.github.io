@@ -35,7 +35,7 @@ fi
 # download pages
 mkdir -p downloaded
 $COMMAND "https://scholar.google.com/citations?user=t9UpeEAAAAAJ&hl=en" > downloaded/googlescholar_giuliomarin.html
-$COMMAND "https://www.runtastic.com/en/users/07b82bdf-b0df-9b46-97f1-0e6d19b40d88/statistics" > downloaded/runtastic_giuliomarin.html
+# $COMMAND "https://www.runtastic.com/en/users/07b82bdf-b0df-9b46-97f1-0e6d19b40d88/statistics" > downloaded/runtastic_giuliomarin.html
 echo "Updated on `date`" > log.txt
 
 # pasre pages
