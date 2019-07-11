@@ -14,9 +14,11 @@ https://giuliomarin.github.io/projects/raytracing.html
 https://giuliomarin.github.io/projects/water_filling_ofdm.html
 https://giuliomarin.github.io/projects/wsn.html
 https://giuliomarin.github.io/publications.html
+https://giuliomarin.github.io/warning.html
+https://giuliomarin.github.io/wedding/about.html
 https://giuliomarin.github.io/wedding/activities.html
 https://giuliomarin.github.io/wedding/engagement.html
+https://giuliomarin.github.io/wedding/hotel.html
 https://giuliomarin.github.io/wedding/index.html
-https://giuliomarin.github.io/wedding/map.html
-https://giuliomarin.github.io/wedding/rsvp.html
 https://giuliomarin.github.io/wedding/registry.html
+https://giuliomarin.github.io/wedding/rsvp.html
