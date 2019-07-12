@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="author" content="Giulio Marin">
     <meta name="description" content="Useful links to webcams, sport activities and other.">
-    <meta name="keywords" content="Engineer,Aquifi,R&amp;D,Algorithms,PhD,Software,Computer Vision,Machine Learning,Deep Learning,webcam,sport,run,bike,runtastic">
+    <meta name="keywords" content="Engineer,Aquifi,R&amp;D,Algorithms,PhD,Software,Computer Vision,Machine Learning,Deep Learning,webcam,sport,run,bike">
     <title>Giulio Marin Ph.D. | Extra</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -25,14 +25,6 @@
     <!-- Add dynamic information  -->
     <script>
       $(document).ready(function() {
-        $.get('data.html', function(data) {
-          var num = "<b>" + $(data).filter("div").find("distyear").text() + "</b> this year ";
-          $("li p.runtastic-distance").prepend(num);
-          var num_activities_month = parseInt($(data).filter("div").find("activitiesmonth").text())
-          var thismonth = "<br>" + ((num_activities_month > 1) ? "<b>" + num_activities_month.toString() + "</b> activities this month" : "* Now using Apple Workout App *");
-          $("li p.runtastic-distance").append(thismonth);
-        });
-
         $.get('extra/webcam.html',function(data){
           var num_webcams = $( "figure", data ).length;
           $("#numWebcams").text("from " + num_webcams + " places of my interest");
@@ -81,26 +73,12 @@
           </li>
           <li class="post-block">
             <div class="right photo">
-              <img src="http://img.softmonk.com/runtastic_icon.jpg">
-            </div>
-            <h3 class="post-title"><a href="https://www.runtastic.com/en/users/Giulio-Marin" target="_blank">My sport activities</a></h3>
-            <p class="post-meta subtitle runtastic-distance">mostly running and biking</p>
-          </li>
-          <li class="post-block">
-            <div class="right photo">
               <img src="http://iconizer.net/files/Vista/orig/webcam.png">
             </div>
             <h3 class="post-title"><a href="extra/webcam.html">Webcam</a></h3>
             <p class="post-meta subtitle" id="numWebcams"></p>
           </li>
           <!--
-<li class="post-block">
-<div class="right photo">
-<img src="http://img.softmonk.com/runtastic_icon.jpg">
-</div>
-<h3 class="post-title"><a href="https://www.runtastic.com/en/users/Giulio-Marin" target="_blank">Some notes</a></h3>
-<p class="post-meta subtitle">...</p>
-</li>
 
 Trasformando un segnale mediante la trasformata di Fourier, nel dominio delle frequenze si ottengono valori sia sul semiasse positivo sia sul semiasse negativo. Quindi signiﬁca che si hanno contributi nelle frequenze negative. Quello che  viene spontaneo chiedersi è: quale signiﬁcato ﬁsico hanno le frequenze negative? La risposta è molto semplice: nessuno. Fisicamente non è possibile interpretare in alcun modo una frequenza negativa.
 Esiste però un notevole vantaggio a considerare il semiasse negativo: i segnali del mondo ﬁsico sono tutti reali, quindi il modulo della trasformata di Fourier è una funzione pari, la fase è dispari. Le frequenze negative non aggiungono informazione, non dicono niente di nuovo sul segnale.
