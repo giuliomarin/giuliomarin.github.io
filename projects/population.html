@@ -1,0 +1,341 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="author" content="Giulio Marin">
+    <title>Giulio Marin Ph.D. | Projects - Population evolution</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon" />
+
+    <link rel="stylesheet" type="text/css" href="../styles/base.css" />
+
+    <link href="//fonts.googleapis.com/css?family=Dosis:400,700%7CBitter:400,400italic,700&subset=latin,latin" rel="stylesheet" type="text/css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script>
+      $(function(){
+        $("#my-footer").load("/footer.html");
+      });
+    </script>
+    
+    <style>
+      .row {width:100%; height:auto; overflow:auto}
+      .left_col {float:left; width:49%;}
+      .right_col {float:right; width:49%;}
+      .slidecontainer {width: 100%;}
+      .slider {width: 98%;}
+      button {display: block; margin: 1em 0}
+      .sl { display: inline-block }
+      #plot {height: 400px}
+      .modebar { display: none !important}
+    </style>
+  </head>
+
+  <body class="sidebar">
+    <div id="topbar" role="banner">
+      <a class="logo icon-btn" href="../index.html">
+        <i class="icon-home"></i>
+      </a>
+      <a class="icon-btn current" href="../projects.html">
+        <i class="icon-floppy"></i>
+      </a>
+
+      <ul class="inline-list title">
+        <li><a class="btn plain" href="../publications.html"><i class="icon-pencil" title="Publications"></i>Publications</a></li>
+        <li><a class="btn plain" href="../projects.html"><i class="icon-floppy" title="Projects"></i>Projects</a></li>
+        <li><a class="btn plain" href="../photos.html"><i class="icon-camera" title="Photos"></i>Photos</a></li>
+        <li><a class="btn plain" href="../extra.html"><i class="icon-tv" title="Extra"></i>Extra</a></li>
+      </ul>
+
+      <a class="icon-btn nav-trigger" href="#nav">
+        <i class="icon-menu"></i>
+      </a>
+    </div>
+
+    <section id="page" class="post" role="main">
+
+      <header class="wrap post-header">
+        <h1 class="page-title">Population evolution</h1>
+        <p class="post-meta subtitle"><time datetime="2019-09-02">2019/09/02</time></p>
+      </header>
+
+      <hr/>
+
+      <article class="wrap post-content">
+
+        <h3>Prediction of population evolution</h3>
+
+        <hr>
+
+        <h4>Model</h4>
+        <p>- Initial population of 50% male and 50% female.<br />
+          - Each person has a different lifetime uniformly distributed.<br>
+          - Female can give birth to male or female in a uniformly distributed time interval.<br>
+        </p>
+        
+        <hr>
+        <h4>Simulator</h4>
+        
+        <button id="startstop" onclick="startLoop()">Start</button>
+        <div class="sl">Year:&nbsp</div><div class="sl" id="yearVal"></div><br>
+        <input class="slider" type="range" min="0" max="1000" value="00" step="1" id="yearRange" disabled>
+        <div style="display: none">
+        <div class="sl">Poly men:&nbsp</div><input type="checkbox" id="polymen" checked><br>
+        </div>
+        <div class="sl">Population:&nbsp</div><div class="sl" id="populationVal"></div>&nbsp<div class="sl" id="malefemaleVal"></div><br>
+        <div class="sl" id="stats">test</div>
+        <div id="plot"></div>
+        
+        <hr>
+        <h4>Statistics</h4>
+        <div id="statplot"></div>
+
+      </article>
+
+    </section>
+
+    <hr>
+
+    <div id="my-footer"></div>
+
+  </body>
+  
+  <script>
+    const density = 1 // Area of the circle is numPeople * density
+    const prolificRange = [20, 40] // Range of years in which women can have children
+    const lifeRange = [0, 100] // Range of people life
+    const startPeople = 100
+    var people = []
+    var pid = 0
+    var year = 0
+    var loop
+    var running = false
+    var maxPopulation = 0
+    var maxChildren = 0
+    
+    var data = [
+      {
+        x: [],
+        y: [],
+        name: 'male',
+        mode: 'markers',
+        type: 'scatter',
+        marker: {color: 'blue'},
+        opacity: 0.8
+      },
+      {
+        x: [],
+        y: [],
+        name: 'female',
+        mode: 'markers',
+        type: 'scatter',
+        marker: {color: 'pink'},
+        opacity: 0.8
+      }];
+      
+      var layout = {
+        // xaxis: { title: "Distance [mm]" },
+        // xaxis: { constrain: 'domain' },
+        xaxis: { autorange: false, zeroline: false, showgrid: false, showticklabels: false },
+        yaxis: { range: [-5, 5], scaleanchor: 'x', autorange: false, zeroline: false, showgrid: false, showticklabels: false},
+        margin: { l: 50, r: 0, b: 50, t: 50, pad: 0},
+        paper_bgcolor: 'rgba(0,0,0,0)',
+        plot_bgcolor: 'rgba(0,0,0,0)'
+      };
+      
+      Plotly.newPlot('plot', data, layout);
+      
+      var statdata = [
+        {
+          x: [],
+          y: [],
+          name: 'male',
+          type: 'scatter',
+          marker: {color: 'blue'}
+        },
+        {
+          x: [],
+          y: [],
+          name: 'female',
+          type: 'scatter',
+          marker: {color: 'pink'},
+        },
+        {
+          x: [],
+          y: [],
+          name: 'children',
+          type: 'scatter',
+          marker: {color: 'black'},
+          opacity: 0.5,
+          yaxis: 'y2'
+        }];
+        
+        var statlayout = {
+          xaxis: { title: "Years" },
+          yaxis: { title: "Number of people" },
+          yaxis2: {
+            title: 'Avg number of children',
+            overlaying: 'y',
+            side: 'right'
+          },
+          margin: { l: 50, r: 0, b: 50, t: 50, pad: 0},
+          paper_bgcolor: 'rgba(0,0,0,0)',
+          plot_bgcolor: 'rgba(0,0,0,0)'
+        };
+        
+        Plotly.newPlot('statplot', statdata, statlayout);
+      
+      function Person(sex, yob, yod) {
+        this.id = pid++
+        this.matchid = -1
+        this.sex = sex;  
+        this.yob = yob;
+        this.yod = yod;
+        this.pos = {x: 0, y: 0}
+        this.makeChildren = function (year) {
+          this.children = []
+          if (this.sex != "female") { return }
+          var yob1 = this.yob + prolificRange[0] + Math.round(Math.random() * (prolificRange[1] - prolificRange[0]))
+          var yob2 = this.yob + prolificRange[0] + Math.round(Math.random() * (prolificRange[1] - prolificRange[0]))
+          if (yob1 < this.yod) { this.children.push({yob: yob1, created: false}) }
+          if (yob2 < this.yod) { this.children.push({yob: yob2, created: false}) }
+        };
+        this.makeChildren();
+      }
+      
+      function makePerson(y) {
+        const sex = Math.random() < 0.5 ? "male" : "female"
+        const yob = y
+        const yod = y + lifeRange[0] + Math.round(Math.random() * (lifeRange[1] - lifeRange[0]))
+        var p =  new Person(sex, yob, yod)
+        p.pos = getPosition(people.length)
+        return p
+      }
+      
+      function getPosition(num) {
+        const rMax = Math.sqrt(num * density / Math.PI)
+        const r = Math.sqrt(Math.random() * rMax)
+        const theta = Math.random() * 2 * Math.PI
+        return {x: r * Math.cos(theta), y: r * Math.sin(theta)}
+      }
+      
+      function updatePopulation() {
+        // remove dead people
+        for (var i = 0; i < people.length; i++) {
+          if (year > people[i].yod) {
+            people.splice(i, 1)
+            i--
+            continue
+          }
+        }
+        
+        // count number of male
+        const numMale = people.reduce((a, c) => a + (c.sex =="male" ? 1 : 0), 0)
+        if (numMale <= 0) { return }
+          
+        // generate new people
+        const polymen = document.getElementById('polymen').checked
+        var numGenerated = 0
+        for (var i = 0; i < people.length; i++) {
+          var generated = false
+          for (var c in people[i].children) {
+            if (people[i].children[c].yob <= year && !people[i].children[c].created) {
+              people[i].children[c].created = true
+              people.push(makePerson(year))
+              generated = true
+            }
+          }
+          numGenerated += generated ? 1 : 0
+          if (!polymen && numGenerated > numMale) { return }
+        }
+      }
+      
+      function computePopulation(filter) {
+        var points = {}
+        points['x'] = []
+        points['y'] = []
+        for (var i = 0; i < people.length; i++) {
+          if (filter(people[i])) {
+            points['x'].push(people[i].pos.x)
+            points['y'].push(people[i].pos.y)
+          }
+        }
+        return points
+      }
+        
+      function updatePlot() {
+        updatePopulation()
+        maxPopulation = people.length > maxPopulation ? people.length : maxPopulation
+        if (people.length == 0) { startLoop() }
+        const m = computePopulation((p) => p.sex == "male")
+        const f = computePopulation((p) => p.sex == "female")
+        data[0]['x'] = m['x'];
+        data[0]['y'] = m['y'];
+        data[1]['x'] = f['x'];
+        data[1]['y'] = f['y'];
+        Plotly.redraw('plot');
+        document.getElementById('populationVal').innerHTML = people.length;
+        document.getElementById('malefemaleVal').innerHTML = "(male: " + m['x'].length + " female: " + f['x'].length + ") - max: " + maxPopulation
+        document.getElementById('yearVal').innerHTML = year;
+        document.getElementById('yearRange').value = year;
+        
+        // Compute stats
+        var statChildren = [0, 0]
+        for (var p in people) {
+          if (people[p].sex == "female") {
+            statChildren[1]++
+            for (var c in people[p].children) {
+              if (people[p].children[c].created) {
+                statChildren[0]++
+              }
+            }
+          }
+        }
+        const avgChildren = (statChildren[1] > 0 ? parseInt(100 * statChildren[0] / statChildren[1]) / 100. : 0)
+        maxChildren = avgChildren > maxChildren ? avgChildren : maxChildren
+        document.getElementById('stats').innerHTML = "Avg num children: " + avgChildren + " - max: " + maxChildren
+        statdata[0]['x'].push(year);
+        statdata[0]['y'].push(m['x'].length);
+        statdata[1]['x'].push(year);
+        statdata[1]['y'].push(f['x'].length);
+        statdata[2]['x'].push(year);
+        statdata[2]['y'].push(avgChildren);
+        Plotly.redraw('statplot');
+      }
+      
+      // Initialize people
+      while (people.length < startPeople) {
+        var p = makePerson(year - Math.round(Math.random() * (lifeRange[1] - lifeRange[0])))
+        if (p.yod > year) { people.push(p) }
+        updatePopulation()
+      }
+      
+      document.getElementById('yearRange').oninput = function() {
+        year = parseFloat(this.value);
+        updatePlot();
+      }
+      
+      function incrementYear() {
+        year += 1
+        updatePlot();
+      }
+      
+      updatePlot();
+      
+      function startLoop() {
+        if (running) {
+          clearInterval(loop)
+          running = false
+          document.getElementById('startstop').innerHTML = "Start"
+        }
+        else {
+          loop = setInterval(incrementYear, 100)
+          running = true
+          document.getElementById('startstop').innerHTML = "Stop"
+        }
+      }
+    </script>
+</html>
