@@ -28,8 +28,9 @@
       .slidecontainer {width: 100%;}
       .slider {width: 98%;}
       button {display: block; margin: 1em 0}
+      div, .sl {margin: 0.5em 0}
       .sl { display: inline-block }
-      #plot {height: 400px}
+      #plot {height: 250px}
       .modebar { display: none !important}
     </style>
   </head>
@@ -66,7 +67,7 @@
 
       <article class="wrap post-content">
 
-        <h3>Prediction of population evolution</h3>
+        <h3>Prediction of population</h3>
 
         <hr>
 
@@ -88,12 +89,12 @@
         <div style="display: none">
         <div class="sl">Poly men:&nbsp</div><input type="checkbox" id="polymen" checked><br>
         </div>
-        <div class="sl">Population:&nbsp</div><div class="sl" id="populationVal"></div>&nbsp<div class="sl" id="malefemaleVal"></div><br>
-        <div class="sl" id="stats">test</div>
         <div id="plot"></div>
         
         <hr>
         <h4>Statistics</h4>
+        <div class="sl">Population:&nbsp</div><div class="sl" id="populationVal"></div>&nbsp<div class="sl" id="malefemaleVal"></div><br>
+        <div class="sl" id="stats"></div>
         <div id="statplot"></div>
 
       </article>
@@ -107,10 +108,11 @@
   </body>
   
   <script>
-    const density = 1 // Area of the circle is numPeople * density
-    const prolificRange = [20, 40] // Range of years in which women can have children
+    const density = 2 // Area of the circle is numPeople * density
+    const fertilityRange = [18, 42] // Range of years in which women can have children
     const lifeRange = [0, 100] // Range of people life
     const startPeople = 100
+    const maxNumChildren = 3
     var people = []
     var pid = 0
     var year = 0
@@ -140,13 +142,12 @@
       }];
       
       var layout = {
-        // xaxis: { title: "Distance [mm]" },
-        // xaxis: { constrain: 'domain' },
         xaxis: { autorange: false, zeroline: false, showgrid: false, showticklabels: false },
-        yaxis: { range: [-5, 5], scaleanchor: 'x', autorange: false, zeroline: false, showgrid: false, showticklabels: false},
-        margin: { l: 50, r: 0, b: 50, t: 50, pad: 0},
+        yaxis: { range: [-8, 8], scaleanchor: 'x', autorange: false, zeroline: false, showgrid: false, showticklabels: false},
+        margin: { l: 50, r: 0, b: 0, t: 0, pad: 0},
         paper_bgcolor: 'rgba(0,0,0,0)',
-        plot_bgcolor: 'rgba(0,0,0,0)'
+        plot_bgcolor: 'rgba(0,0,0,0)',
+        hovermode: false
       };
       
       Plotly.newPlot('plot', data, layout);
@@ -201,10 +202,10 @@
         this.makeChildren = function (year) {
           this.children = []
           if (this.sex != "female") { return }
-          var yob1 = this.yob + prolificRange[0] + Math.round(Math.random() * (prolificRange[1] - prolificRange[0]))
-          var yob2 = this.yob + prolificRange[0] + Math.round(Math.random() * (prolificRange[1] - prolificRange[0]))
-          if (yob1 < this.yod) { this.children.push({yob: yob1, created: false}) }
-          if (yob2 < this.yod) { this.children.push({yob: yob2, created: false}) }
+          for (var i = 0; i < maxNumChildren; i++) {
+            var yob = this.yob + fertilityRange[0] + Math.round(Math.random() * (fertilityRange[1] - fertilityRange[0]))
+            if (yob < this.yod) { this.children.push({yob: yob, created: false}) }
+          }
         };
         this.makeChildren();
       }
@@ -335,7 +336,7 @@
           document.getElementById('startstop').innerHTML = "Start"
         }
         else {
-          loop = setInterval(incrementYear, 100)
+          loop = setInterval(incrementYear, 5)
           running = true
           document.getElementById('startstop').innerHTML = "Stop"
         }
