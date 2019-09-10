@@ -79,6 +79,8 @@
           <li> Female can give birth to male or female in a uniformly distributed time interval.</li>
         </ul>
       </p>
+      <div class="sl">Avg num children:&nbsp</div><div class="sl" id="numChildrenVal"></div><br>
+      <input class="slider" type="range" min="0" max="8" value="2.5" step="0.25" id="numChildrenRange">
       
       <hr>
       <h4>Simulator</h4>
@@ -120,7 +122,6 @@ const density = 2 // Area of the circle is numPeople * density
 const fertilityRange = [18, 42] // Range of years in which women can have children
 const lifeRange = [15, 100] // Range of people life
 const startPeople = 100
-const avgNumChildren = 2.5
 var people = []
 var pid = 0
 var year = 0
@@ -249,6 +250,7 @@ var data = [
           this.makeChildren = function (year) {
             this.children = []
             if (this.sex != "female") { return }
+            const avgNumChildren = document.getElementById('numChildrenRange').value
             const currMax = Math.round(Math.random() * (2 * avgNumChildren))
             for (var i = 0; i < currMax; i++) {
               var yob = this.yob + fertilityRange[0] + Math.round(Math.random() * (fertilityRange[1] - fertilityRange[0]))
@@ -378,11 +380,18 @@ var data = [
           redraw()
         }
         
+        document.getElementById('numChildrenRange').oninput = function() {
+          document.getElementById('numChildrenVal').innerHTML = this.value
+          updatePlot()
+          redraw()
+        }
+        
         function incrementYear() {
           year += 1
           updatePlot()
         }
         
+        document.getElementById('numChildrenVal').innerHTML = document.getElementById('numChildrenRange').value
         updatePlot()
         redraw()
         
