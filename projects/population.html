@@ -74,9 +74,9 @@
       <h4>Model</h4>
       <p>
         <ul>
-          <li> Initial population of 50% male and 50% female.</li>
-          <li> Each person has a different lifetime uniformly distributed.</li>
-          <li> Female can give birth to male or female in a uniformly distributed time interval.</li>
+          <li> Initial population of <span id="initial-population"></span> (50% male and 50% female).</li>
+          <li> Each person has a different lifetime uniformly distributed between <span id="life-range-0"></span> and <span id="life-range-1"></span>.</li>
+          <li> Female can give birth to male or female in a uniformly distributed time interval  between <span id="fertility-range-0"></span> and <span id="fertility-range-1"></span>.</li>
         </ul>
       </p>
       <div class="sl">Avg num children:&nbsp</div><div class="sl" id="numChildrenVal"></div><br>
@@ -130,6 +130,12 @@ var loopplot
 var running = false
 var maxPopulation = 0
 var maxChildren = 0
+
+document.getElementById('initial-population').innerHTML = startPeople
+document.getElementById('life-range-0').innerHTML = lifeRange[0]
+document.getElementById('life-range-1').innerHTML = lifeRange[1]
+document.getElementById('fertility-range-0').innerHTML = fertilityRange[0]
+document.getElementById('fertility-range-1').innerHTML = fertilityRange[1]
 
 var data = [
   {
