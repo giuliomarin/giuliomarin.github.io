@@ -178,10 +178,9 @@
   const l = 0.2 // person length [m]
   const h = 1.7 // person height [m]
   const vr = 10.0 // speed of raindrop [m/s]
-  const Phi = 20. / (60.*60.) // rate of rain [l/(m2*s)] ~ [mm/s]
+  // const Phi = 20. / (60.*60.) // rate of rain [l/(m2*s)] ~ [mm/s]
 
-  var data = [
-    {}];
+  var data = [{}];
 
   var layout = {
     title: "Normalized amount of rain",
@@ -195,7 +194,7 @@
 
   Plotly.newPlot('plot', data, layout);
 
-  function compute(phi) {
+  function compute(phi, norm=false) {
     var points = {}
     points['x'] = []
     points['y'] = []
@@ -203,15 +202,16 @@
       Vh = phi / v * w * l
       Vb = phi / vr * w * h
       V = (Vh + Vb) * 1000 // [ml/m]
-      // if (points['y'].length > 0) { V /= points['y'][0]}
+      if (norm && points['y'].length > 0) { V /= points['y'][0]}
       points['x'].push(v)
       points['y'].push(V)
     }
+    if (norm) { points['y'][0] = 1 }
     return points
   }
 
   function newPlot(phi) {
-    const f = compute(phi / (60.*60.))
+    const f = compute(phi / (60.*60.)) // rate of rain [l/(m2*s)] ~ [mm/s]
     data.push({'x': f['x'], 'y': f['y'], 'name': "" + phi + " [mm/h]"})
   }
 
