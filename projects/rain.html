@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="author" content="Giulio Marin">
+  <title>Giulio Marin Ph.D. | Projects - Rain</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon" />
+
+  <link rel="stylesheet" type="text/css" href="../styles/base.css" />
+
+  <link href="//fonts.googleapis.com/css?family=Dosis:400,700%7CBitter:400,400italic,700&subset=latin,latin"
+    rel="stylesheet" type="text/css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <script>
+    $(function () {
+      $("#my-footer").load("/footer.html");
+    });
+  </script>
+
+  <style>
+    .row {
+      width: 100%;
+      height: auto;
+      overflow: auto
+    }
+
+    .left_col {
+      float: left;
+      width: 49%;
+    }
+
+    .right_col {
+      float: right;
+      width: 49%;
+    }
+
+    .slidecontainer {
+      width: 100%;
+    }
+
+    .slider {
+      width: 98%;
+    }
+
+    button {
+      display: block;
+      margin: 1em 0;
+      font-size: 2em;
+      border-radius: 4px;
+      border: 2px solid;
+      padding: 7px
+    }
+
+    div,
+    .sl {
+      margin: 0.5em 0
+    }
+
+    .sl {
+      display: inline-block
+    }
+
+    #plot {
+      height: 450px
+    }
+
+    .modebar {
+      display: none !important
+    }
+  </style>
+</head>
+
+<body class="sidebar">
+  <div id="topbar" role="banner">
+    <a class="logo icon-btn" href="../index.html">
+      <i class="icon-home"></i>
+    </a>
+    <a class="icon-btn current" href="../projects.html">
+      <i class="icon-floppy"></i>
+    </a>
+
+    <ul class="inline-list title">
+      <li><a class="btn plain" href="../publications.html"><i class="icon-pencil"
+            title="Publications"></i>Publications</a></li>
+      <li><a class="btn plain" href="../projects.html"><i class="icon-floppy" title="Projects"></i>Projects</a></li>
+      <li><a class="btn plain" href="../photos.html"><i class="icon-camera" title="Photos"></i>Photos</a></li>
+      <li><a class="btn plain" href="../extra.html"><i class="icon-tv" title="Extra"></i>Extra</a></li>
+    </ul>
+
+    <a class="icon-btn nav-trigger" href="#nav">
+      <i class="icon-menu"></i>
+    </a>
+  </div>
+
+  <section id="page" class="post" role="main">
+
+    <header class="wrap post-header">
+      <h1 class="page-title">Walk or run in the rain</h1>
+      <p class="post-meta subtitle"><time datetime="2020-01-19">2020/01/19</time></p>
+    </header>
+
+    <hr />
+
+    <article class="wrap post-content">
+
+      <h3>Better to walk or run in the rain?</h3>
+
+      <hr>
+
+      <h4>Model</h4>
+      <p>
+        <ul>
+          <li> A person has to go from point \(A\) to point \(B\) covering a distance \(d\ [m]\).</li>
+          <li> The person is modeled as a cuboid with dimensions \(w\), \(l\), \(h\) \([m]\).</li>
+          <li> The rain is falling with speed \(v_r\ [m/s]\) at a rate of \(\Phi\ [mm/h]\propto[l/m^2s]\).</li>
+          <li> Find the amount of water that falls on the person walking with constant speed \(v\ [m/s]\).</li>
+        </ul>
+      </p>
+
+      <hr>
+      <h4>Solution</h4>
+
+      <p>
+        Assuming that the person moves horizontally from \(A\) to \(B\), only the top of the head and the body front of
+        the person will get wet.
+        The total amount of water will be the sum of the water collected from the top and the front.
+      </p>
+      <p>
+        The amount of rain \(V_h\) collected from the top of the head with area \(w \cdot l\) for a period of time
+        \(t=d/v\) is
+        $$V_h = \Phi\cdot \ w \cdot l\cdot \frac{d}{v}\ \ [l].$$
+        This equation tells us that the faster the person walks, the less wet the person will get.
+      </p>
+      <p>
+        The amount of rain \(V_b\) collected from the body front with area \(w \cdot h\) traveling for a distance \(d\)
+        through a region with rain density \(\Phi/v_r\ [l/m^3]\) is
+        $$V_b = \frac{\Phi}{v_r}\cdot \ w \cdot h\ \cdot d\ \ [l].$$
+        This equation does not depend on the speed of the person, but only on the distance.
+      </p>
+      <p>
+        The total amount of rain \(V\) is
+        $$V = V_h + V_b = \left(\Phi\cdot \ w \cdot l\cdot \frac{d}{v}\right) + \left(\frac{\Phi}{v_r}\cdot \ w \cdot h\
+        \cdot d\right)\ \ [l].$$
+        We can consider trhe normalized amount of water \(\bar V\) per unit of distance
+        $$\bar V = \frac{V}{d} = \left(\frac{\Phi}{v}\cdot \ w \cdot l\right) + \left(\frac{\Phi}{v_r}\cdot \ w \cdot
+        h\right)\ \ \left[\frac{l}{m}\right].$$
+      </p>
+      <p>
+        For a given rain speed \(v_r\) and rate \(\Phi\), \(\bar V\) is minimized for \(v\to\infty\) and it is equal to
+        \(\bar V_b\).
+      </p>
+
+      <hr>
+      <h4>Visualization</h4>
+      <div id="plot"></div>
+
+    </article>
+
+  </section>
+
+  <hr>
+
+  <div id="my-footer"></div>
+
+</body>
+
+<script>
+  const w = 0.5 // person width [m]
+  const l = 0.2 // person length [m]
+  const h = 1.7 // person height [m]
+  const vr = 10.0 // speed of raindrop [m/s]
+  const Phi = 20. / (60.*60.) // rate of rain [l/(m2*s)] ~ [mm/s]
+
+  var data = [
+    {}];
+
+  var layout = {
+    title: "Normalized amount of rain",
+    xaxis: { title: "Speed [m/s]" },
+    yaxis: { title: "Amount of rain [ml/m]", range: [0, 1] },
+    margin: { l: 100, r: 0, b: 50, t: 50, pad: 0 },
+    paper_bgcolor: 'rgba(0,0,0,0)',
+    plot_bgcolor: 'rgba(0,0,0,0)',
+    hovermode: false
+  };
+
+  Plotly.newPlot('plot', data, layout);
+
+  function compute(phi) {
+    var points = {}
+    points['x'] = []
+    points['y'] = []
+    for (var v = 0.5; v < 10; v += 0.05) {
+      Vh = phi / v * w * l
+      Vb = phi / vr * w * h
+      V = (Vh + Vb) * 1000 // [ml/m]
+      // if (points['y'].length > 0) { V /= points['y'][0]}
+      points['x'].push(v)
+      points['y'].push(V)
+    }
+    return points
+  }
+
+  function newPlot(phi) {
+    const f = compute(phi / (60.*60.))
+    data.push({'x': f['x'], 'y': f['y'], 'name': "" + phi + " [mm/h]"})
+  }
+
+  function updatePlot() {
+    newPlot(1)
+    newPlot(5)
+    newPlot(10)
+    newPlot(25)
+    newPlot(50)
+    layout["yaxis"]["range"] = [0, 5]
+    Plotly.redraw('plot')
+  }
+
+  updatePlot()
+</script>
+
+</html>
