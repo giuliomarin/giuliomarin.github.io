@@ -7,9 +7,9 @@ outputPath = os.path.join(websitePath, 'data.html')
 # Save data
 with open(outputPath, 'w') as fout:
 
-	def save(str):
-		print str
-		fout.write(str + '\n')
+	def save(s):
+		print(s)
+		fout.write(s + '\n')
 
 	#####################
 	# Google scholar
