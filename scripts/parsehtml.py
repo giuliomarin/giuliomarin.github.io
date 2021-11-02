@@ -24,7 +24,7 @@ with open(outputPath, 'w') as fout:
 			if numcit is not None:
 				save('<div>numcit: <numcit>%s</numcit></div>' % numcit.group(1))
 	except:
-		print 'Error processing google scholar'
+		print('Error processing google scholar')
 
 	#####################
 	# Runtastic
@@ -72,4 +72,4 @@ with open(outputPath, 'w') as fout:
 									save('<div>distyear: <distyear>%s %s</distyear></div>' % (dist, unit))
 									break
 		except:
-			print 'Error processing runtastic'
+			print('Error processing runtastic')
