@@ -1,1 +1,4 @@
-<div>numcit: <numcit>1010</numcit></div>
+  File "/Users/giulio/git/tmp/giuliomarin.github.io/scripts/parsehtml.py", line 27
+    print 'Error processing google scholar'
+          ^
+SyntaxError: Missing parentheses in call to 'print'. Did you mean print('Error processing google scholar')?
