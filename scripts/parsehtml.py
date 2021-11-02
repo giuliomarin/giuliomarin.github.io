@@ -18,13 +18,13 @@ with open(outputPath, 'w') as fout:
 	try:
 		p = re.compile('.*Citations</a></td><td class="gsc_rsb_std">([0-9]+).*')
 		f = os.path.join(websitePath, 'downloaded/googlescholar_giuliomarin.html')
-		with open(f, 'r') as fid:
+		with open(f, mode='r', encoding = "ISO-8859-1") as fid:
 			content = fid.read()
 			numcit = p.search(content)
 			if numcit is not None:
 				save('<div>numcit: <numcit>%s</numcit></div>' % numcit.group(1))
-	except:
-		print('Error processing google scholar')
+	except Exception as e:
+		print('Error processing google scholar', e)
 
 	#####################
 	# Runtastic
